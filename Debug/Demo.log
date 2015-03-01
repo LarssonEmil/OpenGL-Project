@@ -1,41 +1,11 @@
-﻿Build started 2015-03-01 17:37:01.
-     1>Project "C:\Users\ResQ\Documents\GitHub\Project1\Demo.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2015-03-01 18:13:21.
+     1>Project "E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Demo.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BlitQuad.cpp Core.cpp gbuffer.cpp HeightMapdata.cpp main.cpp Obj.cpp Particles.cpp Render.cpp ShaderCompute.cpp ShaderHMap.cpp ShaderOBJ.cpp ShaderBlit.cpp ShaderParticle.cpp ShaderSMap.cpp ShadowMapFBO.cpp SpotLight.cpp UserInput.cpp
-         UserInput.cpp
-         SpotLight.cpp
-         ShadowMapFBO.cpp
-         ShaderSMap.cpp
-         ShaderParticle.cpp
-     1>c:\users\resq\documents\github\project1\shaderparticle.cpp(94): warning C4101: 'success' : unreferenced local variable
-         ShaderBlit.cpp
-         ShaderOBJ.cpp
-         ShaderHMap.cpp
-         ShaderCompute.cpp
-         Render.cpp
-     1>c:\users\resq\documents\github\project1\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\resq\documents\github\project1\render.cpp(110): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>c:\users\resq\documents\github\project1\render.cpp(111): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-         Particles.cpp
-         Obj.cpp
-     1>c:\users\resq\documents\github\project1\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\resq\documents\github\project1\obj.cpp(31): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+         E:\Program\Visual studio 2013 Professional\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\resq\documents\github\project1\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-         HeightMapdata.cpp
-         gbuffer.cpp
-         Core.cpp
-     1>c:\users\resq\documents\github\project1\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\resq\documents\github\project1\core.cpp(5): warning C4316: 'Render' : object allocated on the heap may not be aligned 16
-     1>c:\users\resq\documents\github\project1\core.cpp(21): warning C4316: 'Obj' : object allocated on the heap may not be aligned 16
-     1>c:\users\resq\documents\github\project1\core.cpp(22): warning C4316: 'Obj' : object allocated on the heap may not be aligned 16
-         BlitQuad.cpp
-         Generating Code...
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt stb_image.c
-         stb_image.c
+     1>e:\program\visual studio 2013 projects\github 3d projekt\opengl-project\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ResQ\Documents\GitHub\Project1\Debug\Demo.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ResQ\Documents\GitHub\Project1\Debug\Demo.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ResQ\Documents\GitHub\Project1\Debug\Demo.lib" /MACHINE:X86 Debug\BlitQuad.obj
+         E:\Program\Visual studio 2013 Professional\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Debug\Demo.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Debug\Demo.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Debug\Demo.lib" /MACHINE:X86 Debug\BlitQuad.obj
          Debug\Core.obj
          Debug\gbuffer.obj
          Debug\HeightMapdata.obj
@@ -53,9 +23,9 @@
          Debug\SpotLight.obj
          Debug\stb_image.obj
          Debug\UserInput.obj
-         Demo.vcxproj -> C:\Users\ResQ\Documents\GitHub\Project1\Debug\Demo.exe
-     1>Done Building Project "C:\Users\ResQ\Documents\GitHub\Project1\Demo.vcxproj" (Build target(s)).
+         Demo.vcxproj -> E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Debug\Demo.exe
+     1>Done Building Project "E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Demo.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:09.97
+Time Elapsed 00:00:00.93
