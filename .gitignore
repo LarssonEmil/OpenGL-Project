@@ -3,3 +3,13 @@
 *.sdf
 *.sdf
 *.log
+*.obj
+Debug/Demo.Build.CppClean.log
+*.exe
+*.log
+Debug/Demo.pdb
+*.tlog
+Debug/vc120.idb
+*.sdf
+Debug/vc120.pdb
+Debug/Demo.Build.CppClean.log
