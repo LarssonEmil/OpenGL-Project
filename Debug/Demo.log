@@ -1,4 +1,4 @@
-﻿Build started 2015-03-01 18:13:21.
+﻿Build started 2015-03-01 18:24:36.
      1>Project "E:\Program\Visual Studio 2013 Projects\GitHub 3d projekt\OpenGL-Project\Demo.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          E:\Program\Visual studio 2013 Professional\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -28,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.93
+Time Elapsed 00:00:01.19

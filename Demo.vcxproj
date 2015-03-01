@@ -118,6 +118,7 @@
     <ClInclude Include="ShadowMapFBO.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Test.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
