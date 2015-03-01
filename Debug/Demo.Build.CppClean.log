@@ -1,22 +1,53 @@
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\vc120.pdb
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\vc120.idb
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\blitquad.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\core.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\gbuffer.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\main.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\obj.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\render.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\shader.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\shaderblit.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\shadowmapfbo.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\spotlight.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\userinput.obj
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.ilk
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.exe
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.pdb
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\cl.command.1.tlog
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\cl.read.1.tlog
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\cl.write.1.tlog
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\link.command.1.tlog
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\link.read.1.tlog
-c:\users\resq\desktop\02-opengl camera\02-opengl v7\debug\demo.tlog\link.write.1.tlog
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\vc120.pdb
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\vc120.idb
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\blitquad.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\core.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\gbuffer.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\heightmapdata.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\main.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\obj.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\particles.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\render.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shadercompute.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shaderhmap.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shaderobj.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shaderblit.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shaderparticle.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shadersmap.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\shadowmapfbo.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\spotlight.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\userinput.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\stb_image.obj
+c:\users\resq\documents\github\project1\debug\vc120.pdb
+c:\users\resq\documents\github\project1\debug\vc120.idb
+c:\users\resq\documents\github\project1\debug\blitquad.obj
+c:\users\resq\documents\github\project1\debug\core.obj
+c:\users\resq\documents\github\project1\debug\gbuffer.obj
+c:\users\resq\documents\github\project1\debug\heightmapdata.obj
+c:\users\resq\documents\github\project1\debug\main.obj
+c:\users\resq\documents\github\project1\debug\obj.obj
+c:\users\resq\documents\github\project1\debug\particles.obj
+c:\users\resq\documents\github\project1\debug\render.obj
+c:\users\resq\documents\github\project1\debug\shadercompute.obj
+c:\users\resq\documents\github\project1\debug\shaderhmap.obj
+c:\users\resq\documents\github\project1\debug\shaderobj.obj
+c:\users\resq\documents\github\project1\debug\shaderblit.obj
+c:\users\resq\documents\github\project1\debug\shaderparticle.obj
+c:\users\resq\documents\github\project1\debug\shadersmap.obj
+c:\users\resq\documents\github\project1\debug\shadowmapfbo.obj
+c:\users\resq\documents\github\project1\debug\spotlight.obj
+c:\users\resq\documents\github\project1\debug\userinput.obj
+c:\users\resq\documents\github\project1\debug\stb_image.obj
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\demo.ilk
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\demo.exe
+e:\program\visual studio 2013 projects\02-opengl v8 combine 1\debug\demo.pdb
+c:\users\resq\documents\github\project1\debug\demo.ilk
+c:\users\resq\documents\github\project1\debug\demo.exe
+c:\users\resq\documents\github\project1\debug\demo.pdb
+c:\users\resq\documents\github\project1\debug\shader.obj
+c:\users\resq\documents\github\project1\debug\demo.tlog\cl.command.1.tlog
+c:\users\resq\documents\github\project1\debug\demo.tlog\cl.read.1.tlog
+c:\users\resq\documents\github\project1\debug\demo.tlog\cl.write.1.tlog
+c:\users\resq\documents\github\project1\debug\demo.tlog\link.command.1.tlog
+c:\users\resq\documents\github\project1\debug\demo.tlog\link.read.1.tlog
+c:\users\resq\documents\github\project1\debug\demo.tlog\link.write.1.tlog

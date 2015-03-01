@@ -1,33 +1,5 @@
-﻿Build started 2015-03-01 00:11:06.
-     1>Project "E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Demo.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         E:\Program\Visual studio 2013 Professional\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Render.cpp
-         Render.cpp
-     1>e:\program\visual studio 2013 projects\02-opengl v8 combine 1\obj.h(18): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>e:\program\visual studio 2013 projects\02-opengl v8 combine 1\render.cpp(110): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>e:\program\visual studio 2013 projects\02-opengl v8 combine 1\render.cpp(111): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-       Link:
-         E:\Program\Visual studio 2013 Professional\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Debug\Demo.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Debug\Demo.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Debug\Demo.lib" /MACHINE:X86 Debug\BlitQuad.obj
-         Debug\Core.obj
-         Debug\gbuffer.obj
-         Debug\HeightMapdata.obj
-         Debug\main.obj
-         Debug\Obj.obj
-         Debug\Particles.obj
-         Debug\Render.obj
-         Debug\ShaderCompute.obj
-         Debug\ShaderHMap.obj
-         Debug\ShaderOBJ.obj
-         Debug\ShaderBlit.obj
-         Debug\ShaderParticle.obj
-         Debug\ShaderSMap.obj
-         Debug\ShadowMapFBO.obj
-         Debug\SpotLight.obj
-         Debug\stb_image.obj
-         Debug\UserInput.obj
-         Demo.vcxproj -> E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Debug\Demo.exe
-     1>Done Building Project "E:\Program\Visual Studio 2013 Projects\02-OpenGL v8 combine 1\Demo.vcxproj" (Build target(s)).
+﻿Build started 2015-03-01 17:20:30.
 
 Build succeeded.
 
-Time Elapsed 00:00:00.66
+Time Elapsed 00:00:00.03
