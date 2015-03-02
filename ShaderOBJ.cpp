@@ -56,19 +56,27 @@ bool ShaderOBJ::compile()
 
 	void main() 
 	{
-		vec3 line1 = vec3(Position[1] - Position[0]);
-		vec3 line2 = vec3(Position[2] - Position[0]);
-		Normal = normalize(cross(line1, line2));
+		vec3 v1 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+		vec3 v2 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+		vec3 normal = cross(v1, v2);
 
-	for(int n = 0; n < 3; n++)
-	{
-		Positions = Position[n];
-		gl_Position = gl_in[n].gl_Position;
-		UV = UVCord[n];
-		EmitVertex();
+		//back face culling
+		if( dot(gl_in[0].gl_Position.xyz, normal) > 0.0f )
+		{
+			vec3 line1 = vec3(Position[1] - Position[0]);
+			vec3 line2 = vec3(Position[2] - Position[0]);
+			Normal = normalize(cross(line1, line2));
+
+			for(int n = 0; n < 3; n++)
+			{
+				Positions = Position[n];
+				gl_Position = gl_in[n].gl_Position;
+				UV = UVCord[n];
+				EmitVertex();
+			}
+			EndPrimitive();
+		}
 	}
-	EndPrimitive();
-}
 )";
 
 

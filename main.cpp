@@ -43,7 +43,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		glDepthFunc(GL_LEQUAL);
 		glDepthMask(GL_TRUE);
 		glClearColor(1, 1, 1, 1);
-		glEnable(GL_CULL_FACE);
+		//glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
 
 		SetViewport(0,0, 640, 480); 
