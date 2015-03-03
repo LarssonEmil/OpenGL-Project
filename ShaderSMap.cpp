@@ -32,6 +32,30 @@ bool ShaderSMap::compile()
 	}
 )";
 
+	const char* geometry_shader = R"(
+	#version 410
+	layout(triangles) in;
+	layout(triangle_strip, max_vertices = 3) out;
+
+	void main() 
+	{
+		vec3 v1 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+		vec3 v2 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+		vec3 normal = cross(v1, v2);
+
+		//front face culling
+		if( dot(gl_in[0].gl_Position.xyz, normal) < 0.0f )
+		{
+			for(int n = 0; n < 3; n++)
+			{
+				gl_Position = gl_in[n].gl_Position;
+				EmitVertex();
+			}
+			EndPrimitive();
+		}
+	}
+)";
+
 	GLint success = 0;
 
 	//create vertex shader
@@ -40,9 +64,16 @@ bool ShaderSMap::compile()
 	glCompileShader(vs);
 	CompileErrorPrint(&vs);
 
+	//create vertex shader
+	GLuint gs = glCreateShader(GL_GEOMETRY_SHADER);
+	glShaderSource(gs, 1, &geometry_shader, nullptr);
+	glCompileShader(gs);
+	CompileErrorPrint(&gs);
+
 	//link shader program (connect vs and ps)
 	*gShaderProgram = glCreateProgram();
 	glAttachShader(*gShaderProgram, vs);
+	glAttachShader(*gShaderProgram, gs);
 	glLinkProgram(*gShaderProgram);
 	LinkErrorPrint(gShaderProgram);
 

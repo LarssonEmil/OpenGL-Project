@@ -69,16 +69,15 @@ bool ShaderHMap::compile()
 		{
 			vec3 v1 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
 			vec3 v2 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
-			vec3 normal = normalize(cross(v1, v2));
+			vec3 normal = cross(v1, v2);
 
-			v1 = posi[1] - posi[0];
-			v2 = posi[2] - posi[0];
-			normalWorld = normalize(cross(v1, v2));
-
-			vec3 tmp = -vec3(gl_in[0].gl_Position);
-
-			if( dot(normalize(tmp), normal) > 0 )
+			//back face culling
+			if( dot(gl_in[0].gl_Position.xyz, normal) < 0.0f )
 			{
+				v1 = posi[1] - posi[0];
+				v2 = posi[2] - posi[0];
+				normalWorld = normalize(cross(v1, v2));
+
 				for ( int i = 0; i < gl_in.length(); i++ )
 				{
 					gl_Position = ProjectionMatrix * gl_in[i].gl_Position;

@@ -45,10 +45,8 @@ int Core::update()
 	if (rend->nrSpotLightsShadow > 0)
 	{
 		rend->ShadowMapPassInit();
-		glCullFace(GL_FRONT);
 		rend->ShadowMapPass(rend->obj);
 		rend->ShadowMapPass(rend->obj2);
-		glCullFace(GL_BACK);
 	}
 
 	rend->LightPass();
