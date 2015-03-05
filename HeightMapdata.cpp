@@ -9,8 +9,8 @@ HeightMapdata::HeightMapdata()
 	texHeight = 0;
 	comp = 0;
 	pixels = 0;
-	gridWidth = 257;
-	gridHeight = 257;
+	gridWidth = 256;
+	gridHeight = 256;
 	gridSize = gridWidth*gridHeight;
 	gIndexBuffer = 0;
 	gIndexAttribute = 0;
@@ -29,7 +29,8 @@ void HeightMapdata::Init()
 {
 	loadImage();
 	createRealHeightMap();
-	createIBO();
+	//createIBO();
+	createIBOsubs();
 	HeightMapBuffers();
 	loadMapTextures();
 	createShaderBuffer();
@@ -239,13 +240,69 @@ void HeightMapdata::createIBO()
 
 	glGenBuffers(1, &gIndexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, IBO.size()*4, &IBO[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, IBOCounter * sizeof(unsigned int), &IBO[0], GL_STATIC_DRAW);
 
 
 #ifdef _DEBUG
 	{GLenum err = glGetError(); if (err)
 		int x = 0; }
 #endif
+}
+
+void HeightMapdata::createIBOsubs()
+{
+	int chunksize = 8;
+	int buffers = (gridWidth / chunksize) * (gridWidth / chunksize);
+	subIndexBuffers = new GLuint[buffers];
+
+	int count = 0;
+	for (int y = 0; y < (gridWidth / chunksize) - 1; y++)
+	{
+		for (int x = 0; x < (gridWidth / chunksize) - 1; x++)
+		{
+			IndexingSubArea(&subIndexBuffers[count++], x, y, gridWidth, chunksize);
+		}
+	}
+}
+
+void HeightMapdata::IndexingSubArea(GLuint* indexBuff, int x, int y, int widthMAP, int widthChunk)
+{
+	int sx = (x * widthChunk + y * widthMAP * widthChunk);
+	int sx2 = (x * widthChunk + (y * widthMAP * widthChunk + widthMAP));
+
+	//sizes:
+	// 4x4 = 40
+	// 8x8 = 288
+
+	std::vector<unsigned int> IBO;
+	//IBO.reserve(136);
+	int count = 0;
+	for (int n = 0; n < (widthChunk / 2); n++)
+	{
+		for (int j = 0; j < widthChunk + 1; j++)
+		{
+			IBO.push_back(sx + j);
+			IBO.push_back(sx2 + j);
+			count += 2;
+		}
+		IBO.push_back(sx2 + 8);
+		sx += widthMAP * 2;
+		count ++;
+
+		for (int j = 0; j < widthChunk + 1; j++)
+		{
+			IBO.push_back(sx2 + ( widthChunk) - j);
+			IBO.push_back(sx + (widthChunk) - j);
+			count += 2;
+		}
+		IBO.push_back(sx);
+		sx2 += widthMAP * 2;
+		count++;
+	}
+
+	glGenBuffers(1, indexBuff);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *indexBuff);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), &IBO[0], GL_STATIC_DRAW);
 }
 
 bool HeightMapdata::terrainCollison(glm::vec3 camerapos)        

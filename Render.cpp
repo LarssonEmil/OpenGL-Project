@@ -83,10 +83,20 @@ void Render::GeometryPassHMap()
 	glProgramUniform1f(gShaderProgramHMap, shaderHMap->mat2Scale, heightMap->mat2Scale);
 
 	glBindVertexArray(heightMap->gHeightMapAttribute);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->gIndexBuffer);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, heightMap->ssbo);
-
-	glDrawElements(GL_TRIANGLE_STRIP, heightMap->getIBOCount(), GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
+	
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->gIndexBuffer);
+	//glDrawElements(GL_TRIANGLE_STRIP, heightMap->getIBOCount(), GL_UNSIGNED_INT, 0);
+	
+	for (int n = 0; n < 961; n++)
+	{
+		if (n % 2)
+		{
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->subIndexBuffers[n]);
+			glDrawElements(GL_TRIANGLE_STRIP, 152, GL_UNSIGNED_INT, 0);
+		}
+	}
 
 	if (insideBorders)
 	{

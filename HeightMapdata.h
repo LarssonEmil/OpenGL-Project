@@ -22,6 +22,8 @@ class HeightMapdata
 		void createShaderBuffer();
 		void Bind(GLuint* shaderProgram, ShaderHMap* shader);
 		bool HeightMapdata::terrainCollison(glm::vec3 cameraPos);
+		void IndexingSubArea(GLuint* indexBuff, int x, int y, int sidesHMap, int sidesChunk);
+		void createIBOsubs();
 
 		void loadImage();  //Loads the image we want to use.
 		void createTexture( GLubyte* image );  //Makes the image/preHeightMap to a texture.
@@ -38,6 +40,7 @@ class HeightMapdata
 		Vertex* getRealHeightMap();
 
 		GLuint gIndexBuffer;
+		GLuint *subIndexBuffers;
 		glm::vec2 cameraUV;
 		float mat1Scale;
 		float mat2Scale;
@@ -75,6 +78,7 @@ class HeightMapdata
 		int blendMapWidth;
 		GLuint blend_texture;
 		float* y;
+		
 
 };
 
