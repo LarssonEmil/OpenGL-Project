@@ -19,3 +19,7 @@ OpenGLDemo.sdf
 OpenGLDemo.v12.suo
 Debug/Demo.ilk
 cubeman - Copyi.v
+Demo.vcxproj
+*.vcxproj
+Demo.vcxproj.filters
+Demo.vcxproj

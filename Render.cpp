@@ -35,7 +35,6 @@ void Render::Init()
 	blitQuads[4].Init(&gShaderProgramBlit, vec2(0.6, -1), vec2(1, -0.6));
 	blitQuads[5].Init(&gShaderProgramBlit, vec2(-1, -1), vec2(1, 1));
 
-	//DENNISSTUFF
 	shaderHMap = new ShaderHMap(&gShaderProgramHMap);
 	heightMap = new HeightMapdata();
 	heightMap->Init();
@@ -89,13 +88,13 @@ void Render::GeometryPassHMap()
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->gIndexBuffer);
 	//glDrawElements(GL_TRIANGLE_STRIP, heightMap->getIBOCount(), GL_UNSIGNED_INT, 0);
 	
-	for (int n = 0; n < 961; n++)
+	for (int n = 0; n <(heightMap->getGridWidth() / heightMap->chunksize) * (heightMap->getGridWidth() / heightMap->chunksize); n++)
 	{
-		if (n % 2)
-		{
+		//if (n % 2)
+		//{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->subIndexBuffers[n]);
-			glDrawElements(GL_TRIANGLE_STRIP, 152, GL_UNSIGNED_INT, 0);
-		}
+			glDrawElements(GL_TRIANGLE_STRIP, heightMap->count, GL_UNSIGNED_INT, 0);
+		//}
 	}
 
 	if (insideBorders)

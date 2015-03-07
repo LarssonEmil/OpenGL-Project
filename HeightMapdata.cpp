@@ -9,8 +9,8 @@ HeightMapdata::HeightMapdata()
 	texHeight = 0;
 	comp = 0;
 	pixels = 0;
-	gridWidth = 256;
-	gridHeight = 256;
+	gridWidth = 258;
+	gridHeight = 258;
 	gridSize = gridWidth*gridHeight;
 	gIndexBuffer = 0;
 	gIndexAttribute = 0;
@@ -251,14 +251,14 @@ void HeightMapdata::createIBO()
 
 void HeightMapdata::createIBOsubs()
 {
-	int chunksize = 8;
+	chunksize = 8;
 	int buffers = (gridWidth / chunksize) * (gridWidth / chunksize);
 	subIndexBuffers = new GLuint[buffers];
 
 	int count = 0;
-	for (int y = 0; y < (gridWidth / chunksize) - 1; y++)
+	for (int y = 0; y < (gridWidth / chunksize) ; y++)
 	{
-		for (int x = 0; x < (gridWidth / chunksize) - 1; x++)
+		for (int x = 0; x < (gridWidth / chunksize) ; x++)
 		{
 			IndexingSubArea(&subIndexBuffers[count++], x, y, gridWidth, chunksize);
 		}
@@ -276,7 +276,7 @@ void HeightMapdata::IndexingSubArea(GLuint* indexBuff, int x, int y, int widthMA
 
 	std::vector<unsigned int> IBO;
 	//IBO.reserve(136);
-	int count = 0;
+	count = 0;
 	for (int n = 0; n < (widthChunk / 2); n++)
 	{
 		for (int j = 0; j < widthChunk + 1; j++)

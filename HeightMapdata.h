@@ -24,6 +24,8 @@ class HeightMapdata
 		bool HeightMapdata::terrainCollison(glm::vec3 cameraPos);
 		void IndexingSubArea(GLuint* indexBuff, int x, int y, int sidesHMap, int sidesChunk);
 		void createIBOsubs();
+		int count;
+		int chunksize;
 
 		void loadImage();  //Loads the image we want to use.
 		void createTexture( GLubyte* image );  //Makes the image/preHeightMap to a texture.
