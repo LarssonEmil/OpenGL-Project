@@ -23,3 +23,8 @@ Demo.vcxproj
 *.vcxproj
 Demo.vcxproj.filters
 Demo.vcxproj
+Win32Project1.vcxproj.user
+Win32Project1.vcxproj.filters
+*.sln
+Debug/Win32Project1.pdb
+*.ilk
