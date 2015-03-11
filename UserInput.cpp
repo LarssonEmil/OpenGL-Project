@@ -226,3 +226,8 @@ vec3* UserInput::GetPos()
 {
 	return &pos;
 }
+
+vec3 UserInput::getToTarget()
+{
+	return (target - pos);
+}

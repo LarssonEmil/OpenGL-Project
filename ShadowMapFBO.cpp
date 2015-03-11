@@ -36,7 +36,6 @@ bool ShadowMapFBO::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glReadBuffer(GL_NONE);
 
 	GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-
 	if (Status != GL_FRAMEBUFFER_COMPLETE) 
 		return false;
 

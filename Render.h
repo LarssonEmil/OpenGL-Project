@@ -20,6 +20,7 @@
 #include "HeightMapdata.h"
 #include "Vertex.h"
 #include "Particles.h"
+#include "QuadTree.h"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 #define GLM_FORCE_RADIANS
@@ -29,6 +30,9 @@ class Render
 private:
 	void setLights();
 	BlitQuad* blitQuads;
+	QuadTree* QT;
+	glm::vec3 lastPos;
+	bool insideBorders = false;
 public:
 	Render(unsigned int* width, unsigned int* height);
 	~Render();

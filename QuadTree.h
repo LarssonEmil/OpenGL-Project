@@ -4,15 +4,17 @@
 #include <gl/glew.h>
 #include <gl/GL.h>
 
-class QuadTree()
+class QuadTree
 {
 private:
-	struct AABB()
+	
+public:
+	struct AABB
 	{
-		float center = float[3];
-		float halfDimension;
+		float center[2];
+		int halfDimension;
 	};
-	struct Node()
+	struct Node
 	{
 		AABB bounds;
 		Node* NE;
@@ -21,9 +23,15 @@ private:
 		Node* NW;
 		GLuint* data;
 	};
-public:
-	QuadTree();
+	struct Plane
+	{
+		float nx, ny, nz, d;
+	};
+
+	QuadTree(GLuint* dataStruct, int dimentions);
+	void Build(GLuint* dataStruct, Node* _this, int x, int y, int newSize, int endSplit);
 	Node* root;
+	void Draw(Node* _this, Plane* frustumPlanes, int depth);
 };
 
 #endif

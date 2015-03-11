@@ -40,6 +40,7 @@ void Render::Init()
 	heightMap->Init();
 	particles = new Particles();
 	particles->createPaticleData(heightMap->getStartingX(), heightMap->getStartingZ());
+	QT = new QuadTree(heightMap->subIndexBuffers, 256);
 }
 
 void Render::GeometryPassInit()
@@ -69,8 +70,13 @@ int Render::GeometryPass(Obj* object)
 void Render::GeometryPassHMap()
 {
 	glUseProgram(gShaderProgramHMap);
-	//bool insideBorders = heightMap->terrainCollison(*in->GetPos());
 	bool insideBorders = false;
+	if (lastPos != *in->GetPos())
+	{
+		insideBorders = heightMap->terrainCollison(*in->GetPos());
+		lastPos = *in->GetPos();
+	}
+
 	glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
 
 	heightMap->Bind(&gShaderProgramHMap, shaderHMap);
@@ -85,17 +91,15 @@ void Render::GeometryPassHMap()
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, heightMap->ssbo);
 	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
 	
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->gIndexBuffer);
-	//glDrawElements(GL_TRIANGLE_STRIP, heightMap->getIBOCount(), GL_UNSIGNED_INT, 0);
+	QuadTree::Plane frustumplanes[2];
 	
-	for (int n = 0; n <(heightMap->getGridWidth() / heightMap->chunksize) * (heightMap->getGridWidth() / heightMap->chunksize); n++)
-	{
-		//if (n % 2)
-		//{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, heightMap->subIndexBuffers[n]);
-			glDrawElements(GL_TRIANGLE_STRIP, heightMap->count, GL_UNSIGNED_INT, 0);
-		//}
-	}
+	//set frusum planes
+	frustumplanes[0].nx = in->GetPos()->x; +in->;
+	frustumplanes[0].ny = in->GetPos()->y;
+	frustumplanes[0].nz = in->GetPos()->z;
+	getToTarget();
+	//traverse tree and draw
+	QT->Draw(QT->root, frustumplanes, 5);
 
 	if (insideBorders)
 	{
@@ -147,6 +151,7 @@ void Render::GeometryPassParticle()
 void Render::ShadowMapPassInit()
 {
 	glUseProgram(gShaderProgramSMap);
+	shadowMap->BindForWriting(); //clears
 }
 
 void Render::ShadowMapPass(Obj* object)
@@ -155,13 +160,11 @@ void Render::ShadowMapPass(Obj* object)
 	object->Bind();
 	for (int n = 0; n < nrSpotLightsShadow; n++)
 	{
-		viewMatrix = glm::lookAt(spotLights[0].Position, spotLights[0].Position + spotLights[0].Direction, vec3(0, 1, 0));
-		shadowMap[n].BindForWriting();
+		viewMatrix = glm::lookAt(spotLights[n].Position, spotLights[n].Position + spotLights[n].Direction, vec3(0, 1, 0));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->model, 1, false, &(object->worldMatrix[0][0]));
 		//glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->normal, 1, false, &(object->normalMatrix[0][0]));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->view, 1, false, &viewMatrix[0][0]);
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->proj, 1, false, &projMatrix[0][0]);
-
 		glDrawElements(GL_TRIANGLES, object->faceCount * 3, GL_UNSIGNED_SHORT, 0);
 	}
 	//viewMatrix = save;

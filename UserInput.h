@@ -46,6 +46,7 @@ public:
 	void Update();
 	void moveCameraDirection(float* y);
 	vec3* GetPos();
+	vec3 getToTarget()
 };
 
 #endif
