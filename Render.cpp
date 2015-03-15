@@ -71,11 +71,11 @@ void Render::GeometryPassHMap()
 {
 	glUseProgram(gShaderProgramHMap);
 	bool insideBorders = false;
-	if (lastPos != *in->GetPos())
-	{
-		insideBorders = heightMap->terrainCollison(*in->GetPos());
-		lastPos = *in->GetPos();
-	}
+	//if (lastPos != *in->GetPos())
+	//{
+	//	insideBorders = heightMap->terrainCollison(*in->GetPos());
+	//	
+	//}
 
 	glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
 
@@ -91,15 +91,15 @@ void Render::GeometryPassHMap()
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, heightMap->ssbo);
 	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
 	
-	QuadTree::Plane frustumplanes[2];
-	
-	//set frusum planes
-	frustumplanes[0].nx = in->GetPos()->x; +in->;
-	frustumplanes[0].ny = in->GetPos()->y;
-	frustumplanes[0].nz = in->GetPos()->z;
-	getToTarget();
+	//Update frustum PLANES
+	if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
+	{
+		glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
+		QT->ExtractPlanes(&wombocombomatrix, true);
+	}
+
 	//traverse tree and draw
-	QT->Draw(QT->root, frustumplanes, 5);
+	QT->Draw(QT->root, 5, *in->GetPos());
 
 	if (insideBorders)
 	{
@@ -110,6 +110,9 @@ void Render::GeometryPassHMap()
 	}
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	lastPos = *in->GetPos();
+	lastDir = in->getToTarget();
 }
 
 void Render::GeometryPassParticle()
@@ -212,12 +215,12 @@ void Render::LightPass()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//each blit
-	for (int n = 0; n < 5; n++)
-	{
-		blitQuads[n].BindVertData();
-		glProgramUniform1i(gShaderProgramBlit, shaderBlit->Use, n);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	}
+	//for (int n = 0; n < 5; n++)
+	//{
+	//	blitQuads[n].BindVertData();
+	//	glProgramUniform1i(gShaderProgramBlit, shaderBlit->Use, n);
+	//	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	//}
 
 #ifdef _DEBUG
 	{GLenum err = glGetError(); if (err)

@@ -3,6 +3,7 @@
 
 #include <gl/glew.h>
 #include <gl/GL.h>
+#include <glm\glm.hpp>
 
 class QuadTree
 {
@@ -27,11 +28,13 @@ public:
 	{
 		float nx, ny, nz, d;
 	};
+	Plane p_planes[6];
 
 	QuadTree(GLuint* dataStruct, int dimentions);
 	void Build(GLuint* dataStruct, Node* _this, int x, int y, int newSize, int endSplit);
 	Node* root;
-	void Draw(Node* _this, Plane* frustumPlanes, int depth);
+	void ExtractPlanes(glm::mat4* comboMatrix, bool normaliz);
+	void Draw(Node* _this, int depth, glm::vec3 CamPos);
 };
 
 #endif
