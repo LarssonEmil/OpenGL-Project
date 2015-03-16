@@ -22,6 +22,7 @@ private:
 	GLuint textureId;
 	GLuint* gShaderProgram;
 	bool loadVert(const std::string);
+	void loadVert2();
 	bool loadBMP(const std::string);
 	
 public:

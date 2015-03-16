@@ -1,6 +1,7 @@
 #include "obj.h"
+#include <vector>
 
-
+using namespace std;
 Obj::Obj(const char* name, int id)
 {
 	this->id = id;
@@ -12,8 +13,11 @@ Obj::Obj(const char* name, int id)
 	rotx = roty = rotz = 0.0f;
 
 	//load triangle data
-	if (!loadVert(temp))
-		throw;
+	if (temp == "boat.v")
+		loadVert2();
+	else
+		if (!loadVert(temp))
+			throw;
 	//load texture data
 	if (!loadBMP(temp2))
 		throw;
@@ -167,6 +171,128 @@ bool Obj::loadVert(const std::string vertdatapath)
 	myfile.close();
 	return true;
 	
+}
+
+void Obj::loadVert2()
+{
+	std::string line;
+	std::ifstream myfile("boat2.v");
+	if (myfile.is_open())
+	{
+		std::vector<TriangleVertex> vert;
+		std::vector<TriangleVertex> uv;
+		std::vector<GLushort> Indices;
+
+		std::string sub;
+		int count = 0;
+		int state = 0;
+		while (true) {
+			if (!(getline(myfile, line))) break;
+			if (line.size() < 5)
+				continue;
+			if (line[0] == 'v' && line[1] == ' ') // vertex pos
+			{
+				vert.push_back(TriangleVertex());
+
+				std::istringstream iss(line);
+				std::string sub;
+				iss >> sub; // discard 'v'
+				iss >> sub;
+				vert[count].x = std::stof(sub);
+				iss >> sub;
+				vert[count].y = std::stof(sub);
+				iss >> sub;
+				vert[count].z = std::stof(sub);
+				vert[count].u = 0.0f;
+				vert[count].v = 0.0f;
+				count++;
+			}
+			else if (line[0] == 'v' && line[1] == 't') //UV cord
+			{
+				if (state != 1)
+				{
+					state = 1;
+					count = 0;
+				}
+				uv.push_back(TriangleVertex());
+				std::istringstream iss(line);
+				std::string sub;
+				iss >> sub; // discard 'vt'
+				iss >> sub;
+				uv[count].u = std::stof(sub);
+				iss >> sub;
+				uv[count].v = std::stof(sub);
+				count++;
+			}
+			else if (line[0] == 'f') // face
+			{
+				if (state != 2)
+				{
+					state = 2;
+					count = 0;
+				}
+				std::istringstream iss(line);
+				std::string sub;
+				Indices.push_back(0);
+				Indices.push_back(0);
+				Indices.push_back(0);
+				//vert
+				iss >> sub; // discard 'f'
+				iss >> sub; //cord 1
+				Indices[count * 3] = std::stoi(sub) - 1;
+				int index = std::stoi(sub) - 1;
+				iss >> sub; // uv 1
+				vert[index].u = uv[std::stoi(sub) - 1].u;
+				vert[index].v = uv[std::stoi(sub) - 1].v;
+				iss >> sub; // normal 1
+
+				iss >> sub; // cord 2
+				Indices[count * 3 + 1] = std::stoi(sub) - 1;
+				index = std::stoi(sub) - 1;
+				iss >> sub; // uv 1
+				vert[index].u = uv[std::stoi(sub) - 1].u;
+				vert[index].v = uv[std::stoi(sub) - 1].v;
+				iss >> sub; // normal 2
+
+				iss >> sub; // cord 3
+				Indices[count * 3 + 2] = std::stoi(sub) - 1;
+				index = std::stoi(sub) - 1;
+				iss >> sub; // uv 1
+				vert[index].u = uv[std::stoi(sub) - 1].u;
+				vert[index].v = uv[std::stoi(sub) - 1].v;
+				
+				iss >> sub; // normal 3
+				count++;
+			}
+		}
+
+		glGenBuffers(1, &vertexDataId);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexDataId);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vert[0])* vert.size(), &vert[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, &IndexBufferId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBufferId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices[0]) * count * 3, &Indices[0], GL_STATIC_DRAW);
+		faceCount = count;
+		glEnableVertexAttribArray(IndexBufferId);
+		
+		//define vertex data layout
+		glGenVertexArrays(1, &gVertexAttribute);
+		glBindVertexArray(gVertexAttribute);
+		glEnableVertexAttribArray(0); //the vertex attribute object will remember its enabled attributes
+		glEnableVertexAttribArray(1);
+		//pos
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Obj::TriangleVertex), BUFFER_OFFSET(0));
+		//uv
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Obj::TriangleVertex), BUFFER_OFFSET(sizeof(float) * 3));
+#ifdef _DEBUG
+		{GLenum err = glGetError(); if (err)
+			int x = 0; }
+#endif
+	}
+	else
+		myfile.close();
+
 }
 
 int Obj::Bind()

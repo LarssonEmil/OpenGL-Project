@@ -19,7 +19,7 @@ int Core::update()
 	{
 		rend->OBJinit = true;
 		rend->obj = new Obj("floor", objectCounter++);
-		rend->obj2 = new Obj("cubeman", objectCounter++);
+		rend->obj2 = new Obj("boat", objectCounter++);
 		MakeLights();
 		wave = 0.0f;
 	}
@@ -29,8 +29,8 @@ int Core::update()
 	rend->GeometryPassInit();
 	rend->GeometryPass(rend->obj);
 	rend->GeometryPass(rend->obj2);
-	rend->GeometryPassHMap();
-	rend->GeometryPassParticle();
+	//rend->GeometryPassHMap();
+	//rend->GeometryPassParticle();
 
 	//rotate light
 	float rottemp = 0.001f;
@@ -40,7 +40,7 @@ int Core::update()
 	rend->spotLights[0].Position = rend->spotLights[0].Position* rot;
 	rend->spotLights[0].Direction = rend->spotLights[0].Direction* rot;
 	
-	rend->obj2->rotate(0, 0.1f, 0, false);
+	//rend->obj2->rotate(0, 0.1f, 0, false);
 
 	if (rend->nrSpotLightsShadow > 0)
 	{
@@ -77,14 +77,14 @@ void Core::MakeLights()
 	rend->spotLights[0].Position = vec3(5.0f, 2.0f, 5.0f);
 	rend->spotLights[0].Direction = normalize(vec3(-2.0f, -1.0f, -2.0f));
 	rend->spotLights[0].DiffuseIntensity = 1.00f;
-	rend->spotLights[0].AmbientIntensity = 0.2f;
+	rend->spotLights[0].AmbientIntensity = 0.0f;
 	rend->spotLights[0].Cutoff = 0.9f;
 
 	rend->spotLights[13].Color = vec3(1.0f, 1.0f, 1.0f);
-	rend->spotLights[13].Position = vec3(0.0f, 50.0f, 0.0f);
-	rend->spotLights[13].Direction = normalize(vec3(0.3f, -0.3f, 0.3f));
+	rend->spotLights[13].Position = vec3(0.0f, 600.0f, 0.0f);
+	rend->spotLights[13].Direction = normalize(vec3(0.0f, -1.0f, 0.0f));
 	rend->spotLights[13].DiffuseIntensity = 1.00f;
-	rend->spotLights[13].AmbientIntensity = 0.0f;
+	rend->spotLights[13].AmbientIntensity = 1.0f;
 	rend->spotLights[13].Cutoff = 0.1f;
 
 	int count = 1;
