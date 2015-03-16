@@ -74,11 +74,7 @@ void Render::GeometryPassHMap()
 	//if (lastPos != *in->GetPos())
 	//{
 	//	insideBorders = heightMap->terrainCollison(*in->GetPos());
-//<<<<<<< HEAD
 	//	lastPos = *in->GetPos();
-//=======
-	//	
-//>>>>>>> origin/master
 	//}
 
 	glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
@@ -94,28 +90,12 @@ void Render::GeometryPassHMap()
 	glBindVertexArray(heightMap->gHeightMapAttribute);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, heightMap->ssbo);
 	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
-//<<<<<<< HEAD
-
-	QuadTree::Plane frustumplanes[2];
 	
-	//set frusum planes
-	frustumplanes[0].pos = *in->GetPos() + in->getToTarget() * 2.0f;
-	frustumplanes[0].dir = in->getToTarget();
-
-	//traverse tree and draw
-	QT->Draw(QT->root, frustumplanes, 1, 5);
-//=======
-	
-	//Update frustum PLANES
-	//if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
-	//{
-	//	glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
-		//QT->ExtractPlanes(&wombocombomatrix, true);
-	//}
+	//glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
+	//QT->ExtractPlanes(&wombocombomatrix, true);
 
 	//traverse tree and draw
 	QT->Draw(QT->root, 5, &viewMatrix);
-//>>>>>>> origin/master
 
 	if (insideBorders)
 	{

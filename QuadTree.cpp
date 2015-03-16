@@ -63,19 +63,6 @@ void QuadTree::Build(GLuint* dataStruct, Node* _this, int edgeX, int edgeY, int 
 	}
 }
 
-//<<<<<<< HEAD
-	void QuadTree::Draw(Node* _this, Plane* frustumPlanes, int count, int depth)
-{
-	//check collide
-	//int count
-
-	//glm::vec3 tomid = glm::vec3(_this->bounds.center[0], 0, _this->bounds.center[1]) - glm::vec3(frustumPlanes[0].pos.x, 0, frustumPlanes[0].pos.z);
-	//if (glm::dot(tomid, frustumPlanes->dir) < 0.0f)
-	//	return;
-
-		//if (depth == 0);
-}
-//=======
 void QuadTree::ExtractPlanes(glm::mat4* comboMatri, bool normaliz)
 {
 	//glm::mat4 comboMatrix = *comboMatri;
@@ -130,60 +117,43 @@ void QuadTree::Draw(Node* _this, int depth, glm::mat4* viewMat)
 	const glm::vec3 aabbCenter = glm::vec3(_this->bounds.center[0], 0, _this->bounds.center[1]);
 	const glm::vec3 aabbSize = glm::vec3(_this->bounds.halfDimension, 0, _this->bounds.halfDimension);
 	
-	glm::vec3 corners[4];
-	corners[0] = glm::vec3(aabbCenter.x - aabbSize.x, 0, aabbCenter.z - aabbSize.z);
-	corners[1] = glm::vec3(aabbCenter.x - aabbSize.x, 0, aabbCenter.z + aabbSize.z);
-	corners[2] = glm::vec3(aabbCenter.x + aabbSize.x, 0, aabbCenter.z - aabbSize.z);
-	corners[3] = glm::vec3(aabbCenter.x + aabbSize.x, 0, aabbCenter.z + aabbSize.z);
-
+	//glm::vec3 corners[4];
+	//corners[0] = glm::vec3(aabbCenter.x - aabbSize.x, 0, aabbCenter.z - aabbSize.z);
+	//corners[1] = glm::vec3(aabbCenter.x - aabbSize.x, 0, aabbCenter.z + aabbSize.z);
+	//corners[2] = glm::vec3(aabbCenter.x + aabbSize.x, 0, aabbCenter.z - aabbSize.z);
+	//corners[3] = glm::vec3(aabbCenter.x + aabbSize.x, 0, aabbCenter.z + aabbSize.z);
+	//
 	//Culling vs frustum
 	//corners
-	for (unsigned int n = 0; n < 4; ++n)
-//>>>>>>> origin/master
+	//for (unsigned int n = 0; n < 4; ++n)
+	//{
+	//	int counter = 0;
+	//planes
+	//	for (int p = 0; p < 5; p++)
+	//	{
+	//		glm::vec3 pp = glm::vec3(*viewMat * glm::vec4(corners[n], 1));
+	//		vec3 planeToPoint = pp - p_planes[p].pos;
+	//		if (dot(pp, p_planes[p].dir) < 0)
+	//			counter++; //inside n planes
+	//	}
+	//	if (counter == 5)
+	//	{
+	//		resultInside = true;
+	//		break;
+	//	}	
+	//}
+	if (depth == 0)
 	{
-		int counter = 0;
-		//planes
-		for (int p = 0; p < 5; p++)
-		{
-			glm::vec3 pp = glm::vec3(*viewMat * glm::vec4(corners[n], 1));
-			vec3 planeToPoint = pp - p_planes[p].pos;
-			if (dot(pp, p_planes[p].dir) < 0)
-				counter++; //inside n planes
-		}
-		if (counter == 5)
-		{
-			resultInside = true;
-			break;
-		}	
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *_this->data);
+		glDrawElements(GL_TRIANGLE_STRIP, 152, GL_UNSIGNED_INT, 0);
 	}
-	if (resultInside)
+	else
 	{
-		//check frustum inside heightmap case
-	}
-	
-	if (resultInside)
-	{
-//<<<<<<< HEAD
 		depth--;
-		Draw(_this->NE, frustumPlanes, count, depth);
-		Draw(_this->SE, frustumPlanes, count, depth);
-		Draw(_this->SW, frustumPlanes, count, depth);
-		Draw(_this->NW, frustumPlanes, count, depth);
-//=======
-		if (depth == 0)
-		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *_this->data);
-			glDrawElements(GL_TRIANGLE_STRIP, 152, GL_UNSIGNED_INT, 0);
-		}
-		else
-		{
-			depth--;
-			Draw(_this->NE, depth, viewMat);
-			Draw(_this->SE, depth, viewMat);
-			Draw(_this->SW, depth, viewMat);
-			Draw(_this->NW, depth, viewMat);
-		}
-//>>>>>>> origin/master
+		Draw(_this->NE, depth, viewMat);
+		Draw(_this->SE, depth, viewMat);
+		Draw(_this->SW, depth, viewMat);
+		Draw(_this->NW, depth, viewMat);
 	}
 }
 
