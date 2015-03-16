@@ -92,14 +92,14 @@ void Render::GeometryPassHMap()
 	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
 	
 	//Update frustum PLANES
-	if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
-	{
-		glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
-		QT->ExtractPlanes(&wombocombomatrix, true);
-	}
+	//if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
+	//{
+	//	glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
+		//QT->ExtractPlanes(&wombocombomatrix, true);
+	//}
 
 	//traverse tree and draw
-	QT->Draw(QT->root, 5, *in->GetPos());
+	QT->Draw(QT->root, 5, &viewMatrix);
 
 	if (insideBorders)
 	{

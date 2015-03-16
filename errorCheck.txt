@@ -1,0 +1,2 @@
+0(144) : error C0000: syntax error, unexpected reserved word "else" at token "else"
+0(164) : error C0000: syntax error, unexpected reserved word "else" at token "else"
