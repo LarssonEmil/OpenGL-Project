@@ -2,9 +2,11 @@
 #include <vector>
 
 using namespace std;
-Obj::Obj(const char* name, int id)
+Obj::Obj(const char* name, int id, float scale)
 {
+	pos = glm::vec4(0.0f);
 	this->id = id;
+	this->scale = scale;
 	std::string temp = name;
 	temp.append(".v");
 	std::string temp2 = name;
@@ -105,11 +107,11 @@ bool Obj::loadVert(const std::string vertdatapath)
 			std::string sub;
 			//vert
 			iss >> sub;
-			vert[n].x = std::stof(sub);
+			vert[n].x = std::stof(sub) * scale;
 			iss >> sub;
-			vert[n].y = std::stof(sub);
+			vert[n].y = std::stof(sub) * scale;
 			iss >> sub;
-			vert[n].z = std::stof(sub);
+			vert[n].z = std::stof(sub) * scale;
 			getline(myfile, line);
 			std::istringstream iss2(line);
 			iss2.str(line);
@@ -309,18 +311,42 @@ int Obj::Bind()
 	return 1;
 }
 
-void Obj::rotate(float x, float y, float z, bool local)
+void Obj::rotate(float x, float y, float z)
 {
-	if (local == false) //rotate order x, y, z	
-	{
-		float rotx = toRad * x;
-		float roty = toRad * y;
-		float rotz = toRad * z;
+	float rotx = toRad * x;
+	float roty = toRad * y;
+	float rotz = toRad * z;
 
-		//rot Y
-		worldMatrix *= glm::mat4(cos(roty), 0.0f, -sin(roty), 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f, 
-			sin(roty), 0.0f, cos(roty), 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f);
-	}
+	worldMatrix[0].w - pos.x;
+	worldMatrix[1].w - pos.y;
+	worldMatrix[2].w - pos.z;
+
+	//rot Y
+	worldMatrix *= glm::mat4(cos(roty), 0.0f, -sin(roty), 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f, 
+		sin(roty), 0.0f, cos(roty), 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
+
+	worldMatrix[0].w + pos.x;
+	worldMatrix[1].w + pos.y;
+	worldMatrix[2].w + pos.z;
+}				   
+
+void Obj::translate(float x, float y, float z)
+{
+	worldMatrix[0].w += x;
+	worldMatrix[1].w += y;
+	worldMatrix[2].w += z;
+	pos.x += x;
+	pos.y += y;
+	pos.z += z;
+
+}
+
+void Obj::scaleUniform(float val)
+{
+	worldMatrix[0].x += val;
+	worldMatrix[1].y += val;
+	worldMatrix[2].z += val;
+	scale += val;
 }

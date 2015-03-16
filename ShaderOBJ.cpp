@@ -36,8 +36,8 @@ bool ShaderOBJ::compile()
 
 	void main()
 	{       
-		Position0		= (World * vec4(Position, 1.0)).xyz;
-		gl_Position		= Projection * View * vec4(Position0, 1);
+		Position0		= (vec4(Position, 1.0) * World).xyz; //why this one right and the other one left??
+		gl_Position		= Projection * View * vec4(Position0, 1); 
 		UV0				= UV;    
 	}
 )";

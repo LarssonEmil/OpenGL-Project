@@ -9,7 +9,7 @@ UserInput::UserInput(mat4* mat, vec3 posIn, vec3 targetIn, vec3 upIn)
 	target = targetIn;
 	up = upIn;
 
-	speed = 0.1f;
+	speed = 0.5f;
 
 	Init();
 

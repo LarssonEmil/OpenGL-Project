@@ -35,17 +35,17 @@ public:
 		float x, y, z;
 		float u, v;
 	};
-	Obj(const char* name, int id);
-	float posx, posy, posz;
+	Obj(const char* name, int id, float scale);
+	glm::vec4 pos;
 	float rotx, roty, rotz;
-	void translate(float x, float y, float z, bool local = false);
-	void rotate(float x, float y, float z, bool local = false);
+	void translate(float x, float y, float z);
+	void rotate(float x, float y, float z);
 	void scaleUniform(float x);
-	void scale(float x, float y, float z);
 	int Bind();
 	void Unbind();
 	int vertCount;
 	int faceCount;
+	float scale;
 	glm::mat4 worldMatrix = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
 										0.0f, 1.0f, 0.0f, 0.0f,
 										0.0f, 0.0f, 1.0f, 0.0f,

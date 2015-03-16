@@ -113,12 +113,12 @@ bool ShaderHMap::compile()
 		layout (location = 3) out vec3 TexCoordOut;    
 
 		void main () {
-			vec4 blendMap = texture(blendMapSampler ,vec2(texCoordsGeo));
-			vec4 mat1 = texture(grassSampler, texCoordsGeo*mat1Scale);
-			vec4 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale);
+			vec3 blendMap = texture(blendMapSampler ,vec2(texCoordsGeo)).xyz;
+			vec3 mat1 = texture(grassSampler, texCoordsGeo*mat1Scale).xy<;
+			vec3 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale);
 
 			WorldPosOut = possi;
-			DiffuseOut = -0.15f + (possi / 256.0f); //DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz;
+			DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz; //DiffuseOut = -0.15f + (possi / 256.0f);
 			NormalOut = normalWorld;
 			TexCoordOut = vec3 (1,0,0);	
 		}
