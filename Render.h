@@ -32,6 +32,8 @@ private:
 	BlitQuad* blitQuads;
 	QuadTree* QT;
 	glm::vec3 lastPos;
+	glm::vec3 lastDir;
+
 	bool insideBorders = false;
 public:
 	Render(unsigned int* width, unsigned int* height);
@@ -76,6 +78,7 @@ public:
 	void ShadowMapPassInit();
 	void ShadowMapPass(Obj* object);
 	void LightPass();
+	
 
 	//main camera matrixes
 	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0, 0, -2), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));

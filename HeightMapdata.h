@@ -94,8 +94,6 @@ class HeightMapdata
 		int blendMapWidth;
 		GLuint blend_texture;
 		float* y;
-		
-
 };
 
 #endif
