@@ -114,7 +114,7 @@ bool ShaderHMap::compile()
 
 		void main () {
 			vec3 blendMap = texture(blendMapSampler ,vec2(texCoordsGeo)).xyz;
-			vec3 mat1 = texture(grassSampler, texCoordsGeo*mat1Scale).xy<;
+			vec3 mat1 = texture(grassSampler, texCoordsGeo*mat1Scale).xyz;
 			vec3 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale);
 
 			WorldPosOut = possi;

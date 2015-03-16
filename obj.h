@@ -15,7 +15,7 @@
 class Obj
 {
 private:
-	const float toRad = 0.0174532925;
+	const float toRad = 0.0174532925f;
 
 	GLuint vertexDataId;
 	GLuint gVertexAttribute;

@@ -317,9 +317,9 @@ void Obj::rotate(float x, float y, float z)
 	float roty = toRad * y;
 	float rotz = toRad * z;
 
-	worldMatrix[0].w - pos.x;
-	worldMatrix[1].w - pos.y;
-	worldMatrix[2].w - pos.z;
+	worldMatrix[0].w -= pos.x;
+	worldMatrix[1].w -= pos.y;
+	worldMatrix[2].w -= pos.z;
 
 	//rot Y
 	worldMatrix *= glm::mat4(cos(roty), 0.0f, -sin(roty), 0.0f,
@@ -327,9 +327,9 @@ void Obj::rotate(float x, float y, float z)
 		sin(roty), 0.0f, cos(roty), 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 
-	worldMatrix[0].w + pos.x;
-	worldMatrix[1].w + pos.y;
-	worldMatrix[2].w + pos.z;
+	worldMatrix[0].w += pos.x;
+	worldMatrix[1].w += pos.y;
+	worldMatrix[2].w += pos.z;
 }				   
 
 void Obj::translate(float x, float y, float z)

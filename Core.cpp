@@ -20,10 +20,10 @@ int Core::update()
 		rend->OBJinit = true;
 		rend->obj = new Obj("floor", objectCounter++, 5.0f);
 		rend->obj2 = new Obj("boat", objectCounter++, 0.01f);
-		rend->obj->translate(128, 9, 128);
-		rend->obj->scaleUniform(30.0);
-		rend->obj2->translate(100, 10, 90);
-		rend->obj2->scaleUniform(-0.95);
+		rend->obj->translate(128.0f, 9.0f, 128.0f);
+		rend->obj->scaleUniform(30.0f);
+		rend->obj2->translate(100.0f, 10.0f, 90.0f);
+		rend->obj2->scaleUniform(-0.95f);
 
 		
 

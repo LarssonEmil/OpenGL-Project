@@ -1,1 +1,2 @@
-0(16) : error C0000: syntax error, unexpected identifier, expecting ',' or ';' at token "gl_Position"
+0(22) : error C0000: syntax error, unexpected ';', expecting "::" at token ";"
+0(23) : error C7011: implicit cast from "vec4" to "vec3"
