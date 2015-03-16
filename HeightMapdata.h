@@ -31,6 +31,9 @@ class HeightMapdata
 		void createTexture( GLubyte* image );  //Makes the image/preHeightMap to a texture.
 		void createRealHeightMap(); //Creates the actual heightmap
 		void createIBO();  //Creates a buffer that holds in which order the vertices should be rendered.
+		void sampleHeightMaptoGetNormal(); //Calculate smooth normals for the heightmap
+
+		//Get functions
 		int getIBOCount();
 		int getGridSize();
 		int getGridWidth();
@@ -39,13 +42,19 @@ class HeightMapdata
 		float getStartingZ();
 		GLuint getTexture();
 		
+
 		Vertex* getRealHeightMap();
 
+		//Index buffer, saying in which order the indexes in ssbo should be writen.
 		GLuint gIndexBuffer;
 		GLuint *subIndexBuffers;
+
+		//heightmap uniforms
 		glm::vec2 cameraUV;
 		float mat1Scale;
 		float mat2Scale;
+
+		//Buffers 
 		GLuint gIndexAttribute;
 		GLuint gHeightMapBuffer;
 		GLuint gHeightMapAttribute;
@@ -63,9 +72,14 @@ class HeightMapdata
 		float startingPosX;
 		float startingPosZ;
 
-		float* preHeightMap;
+		//Heightmap data storage array
 		Vertex* heightMap;
+
+		//Heightmap texture
 		GLuint height_texture;
+
+		//Smooth normals
+		//glm::vec3 tmpBufferArray[66049];
 
 		//Moved here from Render
 		//Grass and Road

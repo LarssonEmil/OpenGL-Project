@@ -85,7 +85,7 @@ bool ShaderParticle::compile()
 
 		void main () {
 			WorldPosOut = vec3(1,0,0);
-			DiffuseOut = vec3(0,0,1);
+			DiffuseOut = vec3(0,0,1); //1,1,1
 			NormalOut = vec3(1,0,0);
 			TexCoordOut = vec3 (1,0,0);	
 		}

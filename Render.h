@@ -79,7 +79,7 @@ public:
 
 	//main camera matrixes
 	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0, 0, -2), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	glm::mat4 projMatrix = glm::perspective(glm::pi<float>()*0.45f, 640.f / 480.0f, 0.1f, 1000.0f);
+	glm::mat4 projMatrix = glm::perspective(3.14f*0.45f, 640.f / 480.0f, 0.1f, 1000.0f);
 
 	//game objects
 	bool OBJinit = false;

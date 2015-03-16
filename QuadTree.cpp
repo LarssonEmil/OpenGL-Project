@@ -38,8 +38,15 @@ void QuadTree::Build(GLuint* dataStruct, Node* _this, int edgeX, int edgeY, int 
 	}
 }
 
-void QuadTree::Draw(Node* _this, int depth)
+void QuadTree::Draw(Node* _this, Plane* frustumPlanes, int count, int depth)
 {
+	//check collide
+	//int count
+	
+	//glm::vec3 tomid = glm::vec3(_this->bounds.center[0], 0, _this->bounds.center[1]) - glm::vec3(frustumPlanes[0].pos.x, 0, frustumPlanes[0].pos.z);
+	//if (glm::dot(tomid, frustumPlanes->dir) < 0.0f)
+	//	return;
+
 	if (depth == 0)
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *_this->data);
@@ -48,9 +55,9 @@ void QuadTree::Draw(Node* _this, int depth)
 	else
 	{
 		depth--;
-		Draw(_this->NE, depth);
-		Draw(_this->SE, depth);
-		Draw(_this->SW, depth);
-		Draw(_this->NW, depth);
+		Draw(_this->NE, frustumPlanes, count, depth);
+		Draw(_this->SE, frustumPlanes, count, depth);
+		Draw(_this->SW, frustumPlanes, count, depth);
+		Draw(_this->NW, frustumPlanes, count, depth);
 	}
 }

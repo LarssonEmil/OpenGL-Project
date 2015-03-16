@@ -24,6 +24,7 @@ bool ShaderHMap::compile()
 		#version 430
 		layout(location = 0) in vec3 heightMapPos;
 		layout(location = 1) in vec2 heightMapUV;
+		layout(location = 2) in vec3 smoothNormals;
 
 		uniform mat4 ViewMatrix;
 		
@@ -38,15 +39,16 @@ bool ShaderHMap::compile()
 		out vec2 texCoords;
 		out vec3 camera;
 		out vec3 posi;
-
+		out vec3 SNormals;
 		
 		void main () {
 			posi = vec3(heightMapPos.x, texture(heightMapSampler, heightMapUV).x*30 ,heightMapPos.z);
 			gl_Position = ViewMatrix * vec4( posi, 1 );
 			texCoords = heightMapUV;
+			SNormals = smoothNormals;
 
 			vec4 heightTmp = texture( heightMapSampler, cameraUV );
-			heightS = heightTmp.x*30;
+			heightS = heightTmp.x*50;
 		}
 	)";
 
@@ -58,6 +60,7 @@ bool ShaderHMap::compile()
 
 		in vec2 texCoords[];
 		in vec3 posi[];
+		in vec3 SNormals[];
 
 		uniform mat4 ProjectionMatrix;
 
@@ -76,13 +79,13 @@ bool ShaderHMap::compile()
 			{
 				v1 = posi[1] - posi[0];
 				v2 = posi[2] - posi[0];
-				normalWorld = normalize(cross(v1, v2));
 
 				for ( int i = 0; i < gl_in.length(); i++ )
 				{
 					gl_Position = ProjectionMatrix * gl_in[i].gl_Position;
 					texCoordsGeo = texCoords[i];
 					possi = posi[i];
+					normalWorld = normalize(cross(v1, v2)); //SNormals[i];//
 					EmitVertex();
 				}
 				EndPrimitive();
@@ -94,7 +97,7 @@ bool ShaderHMap::compile()
 		#version 430
 		in vec2 texCoordsGeo;
 		in vec3 possi;
-		in vec3 normalWorld;
+		in vec3 normalWorld;	
 
 		uniform sampler2D heightMapSampler;
 
@@ -115,7 +118,7 @@ bool ShaderHMap::compile()
 			vec4 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale);
 
 			WorldPosOut = possi;
-			DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz;
+			DiffuseOut = -0.15f + (possi / 256.0f); //DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz;
 			NormalOut = normalWorld;
 			TexCoordOut = vec3 (1,0,0);	
 		}

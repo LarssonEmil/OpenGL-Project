@@ -42,7 +42,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 		glDepthMask(GL_TRUE);
-		glClearColor(1, 1, 1, 1);
+		glClearColor(1, 1, 1, 1); //0,0,1,1
 		//glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
 
