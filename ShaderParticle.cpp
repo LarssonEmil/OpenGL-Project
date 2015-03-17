@@ -52,22 +52,22 @@ bool ShaderParticle::compile()
 	
 			//Triangle
 			//Upper left vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.15f + vec3(0.0f, 0.15f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.10f + vec3(0.0f, 0.10f, 0.0f), 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 
 			//Lower left vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.15f - vec3(0.0f, 0.15f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.10f - vec3(0.0f, 0.10f, 0.0f), 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 
 			//Upper right vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.15f + vec3(0.0f, 0.15f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.10f + vec3(0.0f, 0.10f, 0.0f), 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;	
 			EmitVertex();
 
 			//Lower right vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.15f - vec3(0.0f, 0.15f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.10f - vec3(0.0f, 0.10f, 0.0f), 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 

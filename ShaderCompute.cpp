@@ -37,12 +37,12 @@ bool ShaderCompute::compile()
 			particles data[];
 		};	
 
-		layout (local_size_x = 20, local_size_y = 1, local_size_z = 1)in;
+		layout (local_size_x = 25, local_size_y = 1, local_size_z = 1)in;
 
 		void main()
 		{
 			uint tmpID =  gl_GlobalInvocationID.x;
-			if( tmpID < 200 )
+			if( tmpID < 500 )
 			{
 				vec2 UV = vec2(data[tmpID].pos.x / gridWidth, data[tmpID].pos.z / gridHeight);
 				if( data[tmpID].pos.y < texture(heightMapSampler, UV).x*30 + 3)

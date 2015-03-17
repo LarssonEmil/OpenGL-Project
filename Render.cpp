@@ -123,7 +123,7 @@ void Render::GeometryPassParticle()
 	glProgramUniform1f(gShaderProgramCompute, shaderCompute->gridHeightV, heightMap->getGridHeight());
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, particles->paticleVBO);
-	glDispatchCompute(10, 1, 1);
+	glDispatchCompute(20, 1, 1);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
 #ifdef _DEBUG
@@ -138,7 +138,7 @@ void Render::GeometryPassParticle()
 	glProgramUniformMatrix4fv(gShaderProgramParticle, shaderParticle->ViewMatrix, 1, false, &viewMatrix[0][0]);
 	glProgramUniformMatrix4fv(gShaderProgramParticle, shaderParticle->ProjectionMatrix, 1, false, &projMatrix[0][0]);
 
-	glDrawArrays(GL_POINTS, 0, 200);
+	glDrawArrays(GL_POINTS, 0, 500);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
 #ifdef _DEBUG
