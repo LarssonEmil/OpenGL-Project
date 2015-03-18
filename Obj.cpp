@@ -205,8 +205,8 @@ void Obj::loadVert2()
 				vert[count].y = std::stof(sub);
 				iss >> sub;
 				vert[count].z = std::stof(sub);
-				vert[count].u = 0.0f;
-				vert[count].v = 0.0f;
+				vert[count].u = -1.0f;
+				vert[count].v = -1.0f;
 				count++;
 			}
 			else if (line[0] == 'v' && line[1] == 't') //UV cord
@@ -240,30 +240,32 @@ void Obj::loadVert2()
 				Indices.push_back(0);
 				//vert
 				iss >> sub; // discard 'f'
-				iss >> sub; //cord 1
-				Indices[count * 3] = std::stoi(sub) - 1;
-				int index = std::stoi(sub) - 1;
-				iss >> sub; // uv 1
-				vert[index].u = uv[std::stoi(sub) - 1].u;
-				vert[index].v = uv[std::stoi(sub) - 1].v;
-				iss >> sub; // normal 1
 
-				iss >> sub; // cord 2
-				Indices[count * 3 + 1] = std::stoi(sub) - 1;
-				index = std::stoi(sub) - 1;
-				iss >> sub; // uv 1
-				vert[index].u = uv[std::stoi(sub) - 1].u;
-				vert[index].v = uv[std::stoi(sub) - 1].v;
-				iss >> sub; // normal 2
-
-				iss >> sub; // cord 3
-				Indices[count * 3 + 2] = std::stoi(sub) - 1;
-				index = std::stoi(sub) - 1;
-				iss >> sub; // uv 1
-				vert[index].u = uv[std::stoi(sub) - 1].u;
-				vert[index].v = uv[std::stoi(sub) - 1].v;
-				
-				iss >> sub; // normal 3
+				for (int n = 0; n < 3; n++)
+				{
+					std::string pos;
+					iss >> pos; // vertex index
+					iss >> sub; // uv index
+					int indexVERT = std::stoi(pos) - 1;
+					int indexUV = std::stoi(sub) - 1;
+					if (vert[indexVERT].u < 0)
+					{
+						Indices[count * 3 + n] = indexVERT; // set vertex index
+						vert[indexVERT].u = uv[indexUV].u;
+						vert[indexVERT].v = uv[indexUV].v;
+					}
+					else
+					{
+						int temp = indexVERT;
+						indexVERT = vert.size();
+						vert.push_back(TriangleVertex());
+						vert[indexVERT] = vert[temp];
+						vert[indexVERT].u = uv[indexUV].u;
+						vert[indexVERT].v = uv[indexUV].v;
+						Indices[count * 3 + n] = indexVERT;
+					}	
+					iss >> sub; // normal index
+				}
 				count++;
 			}
 		}
