@@ -9,7 +9,7 @@ struct Vertex
 {
 	float x, y, z; 
 	float u, v;
-	float nx, ny, nz;
+	//float nx, ny, nz;
 	
 	Vertex(){}
 
@@ -22,12 +22,12 @@ struct Vertex
 		v = tv;
 	}
 
-	void setNormals( glm::vec3 n)
+	/*void setNormals( glm::vec3 n)
 	{
 		nx = n.x;
 		ny = n.y;
 		nz = n.z;
-	}
+	}*/
 
 	glm::vec3 getXYZ()
 	{

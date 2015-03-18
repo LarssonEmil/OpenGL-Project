@@ -71,11 +71,11 @@ void Render::GeometryPassHMap()
 {
 	glUseProgram(gShaderProgramHMap);
 	bool insideBorders = false;
-	//if (lastPos != *in->GetPos())
-	//{
-	//	insideBorders = heightMap->terrainCollison(*in->GetPos());
-	//	lastPos = *in->GetPos();
-	//}
+	if (lastPos != *in->GetPos())
+	{
+		insideBorders = heightMap->terrainCollison(*in->GetPos());
+		lastPos = *in->GetPos();
+	}
 
 	glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
 

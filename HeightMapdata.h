@@ -66,7 +66,7 @@ class HeightMapdata
 		int comp;
 		int pixels;
 		int gridWidth;
-		int gridHeight;
+		int gridHeight; //It says gridHeight it acualy is the gridLength
 		int gridSize;
 		int IBOCounter;
 		float startingPosX;
@@ -90,7 +90,7 @@ class HeightMapdata
 		GLuint grass_texture;
 		GLuint road_texture;
 		//Blend map
-		int blendMapHeight;
+		int blendMapHeight; //It says gridHeight it acualy is the gridLength
 		int blendMapWidth;
 		GLuint blend_texture;
 		float* y;

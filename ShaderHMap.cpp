@@ -24,7 +24,6 @@ bool ShaderHMap::compile()
 		#version 430
 		layout(location = 0) in vec3 heightMapPos;
 		layout(location = 1) in vec2 heightMapUV;
-		layout(location = 2) in vec3 smoothNormals;
 
 		uniform mat4 ViewMatrix;
 		
@@ -39,13 +38,11 @@ bool ShaderHMap::compile()
 		out vec2 texCoords;
 		out vec3 camera;
 		out vec3 posi;
-		out vec3 SNormals;
 		
 		void main () {
 			posi = vec3(heightMapPos.x, texture(heightMapSampler, heightMapUV).x*30 ,heightMapPos.z);
 			gl_Position = ViewMatrix * vec4( posi, 1 );
 			texCoords = heightMapUV;
-			SNormals = smoothNormals;
 
 			vec4 heightTmp = texture( heightMapSampler, cameraUV );
 			heightS = heightTmp.x*50;
@@ -60,7 +57,6 @@ bool ShaderHMap::compile()
 
 		in vec2 texCoords[];
 		in vec3 posi[];
-		in vec3 SNormals[];
 
 		uniform mat4 ProjectionMatrix;
 
@@ -85,7 +81,7 @@ bool ShaderHMap::compile()
 					gl_Position = ProjectionMatrix * gl_in[i].gl_Position;
 					texCoordsGeo = texCoords[i];
 					possi = posi[i];
-					normalWorld = normalize(cross(v1, v2)); //SNormals[i];//
+					normalWorld = normalize(cross(v1, v2));
 					EmitVertex();
 				}
 				EndPrimitive();
@@ -115,7 +111,7 @@ bool ShaderHMap::compile()
 		void main () {
 			vec3 blendMap = texture(blendMapSampler ,vec2(texCoordsGeo)).xyz;
 			vec3 mat1 = texture(grassSampler, texCoordsGeo*mat1Scale).xyz;
-			vec3 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale).xyz;
+			vec3 mat2 = texture(roadSampler, texCoordsGeo*mat2Scale).xyz; //mat2Scale: Hur många pixel som ska använda samma UV
 
 			WorldPosOut = possi;
 			DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz; //DiffuseOut = -0.15f + (possi / 256.0f);

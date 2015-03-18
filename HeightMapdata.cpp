@@ -147,14 +147,11 @@ void HeightMapdata::HeightMapBuffers()
 	glBindVertexArray(gHeightMapAttribute);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
 
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
 
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(sizeof(float) * 3));
-
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(sizeof(float)* 5));
 
 #ifdef _DEBUG
 	{GLenum err = glGetError(); if (err)
@@ -170,12 +167,6 @@ void HeightMapdata::loadImage()
 
 	if (image == nullptr)
 		throw(std::string("Failed to load texture"));
-
-	image[55]; //Hoppa 4a i index för varje vertex, dvs om vi loppar igenom 257*257: heightMap[i].y = image[i*4]
-	//Ta ut datan och lägg den i heightMap.y dvs heightmap vertexernas y.
-	//Datan i image är höjden.
-	//Tar vi datan och lägger den i heightMap.y och scailar den som vi gör i vertex shadern dvs med 30 typ
-	//så kan vi använda den för att kolla om vi går på heightmappen och sampleHeightMaptoGetNormal koden borde fungera.
 
 	createTexture(image);
 	
@@ -329,104 +320,104 @@ bool HeightMapdata::terrainCollison(glm::vec3 camerapos)
 	}
 	return false;
 }
-
-void HeightMapdata::sampleHeightMaptoGetNormal()
-{
-	//tmpBufferArray = new glm::vec3[gridSize];
-	glm::vec3 tmpBufferArray[66049];
-	glm::vec3 closestPArray[5]; // index 0 is the point we are in currently.
-	glm::vec3 averageNormal;
-	int counter = 0;
-
-	for (int i = 0; i < gridWidth; i++)
-	{
-		for (int j = 0; j < gridHeight; j++)
-		{
-			averageNormal = glm::vec3(0, 0, 0);
-
-			if (i != 0 && i != 256 && j != 0 && j != 256) //regular way
-			{
-				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
-				closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
-				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
-				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
-				closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
-			}
-			if (i == 0)
-			{
-				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
-				closestPArray[1] = glm::vec3(0, 1, 0);
-				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
-				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
-				closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
-			}
-			else if (i == 256)
-			{
-				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
-				closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
-				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
-				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
-				closestPArray[4] = glm::vec3(0, 1, 0);
-			}
-
-			if (j == 0)
-			{
-				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
-				if (i == 0)
-					closestPArray[1] = glm::vec3(0, 1, 0);
-				else
-					closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
-				closestPArray[2] = glm::vec3(0, 1, 0);
-				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
-				if (i == 256)
-					closestPArray[4] = glm::vec3(0, 1, 0);
-				else
-					closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
-			}
-			else if (j == 256)
-			{
-				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
-				if (i == 0)
-					closestPArray[1] = glm::vec3(0, 1, 0);
-				else
-					closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
-				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();	
-				closestPArray[3] = glm::vec3(0, 1, 0);
-				if (i == 256)
-					closestPArray[4] = glm::vec3(0, 1, 0);
-				else
-					closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
-			}
-
-			for (int n = 1; n < 5; n++)
-			{
-				if (n%2)
-					averageNormal += normalize(cross(closestPArray[0], closestPArray[n]));
-				else
-					averageNormal += normalize(cross(closestPArray[n], closestPArray[0]));
-			}
-			/*averageNormal += normalize(cross(closestPArray[1], closestPArray[2]));
-			averageNormal += normalize(cross(closestPArray[2], closestPArray[3]));
-			averageNormal += normalize(cross(closestPArray[3], closestPArray[4]));
-			averageNormal += normalize(cross(closestPArray[4], closestPArray[1]));*/
-
-			averageNormal = averageNormal / 4.0f;
-
-			tmpBufferArray[counter] = normalize(averageNormal); //Array with vertex normals.
-			counter++;
-		}
-	}
-
-	for (int column = 0; column < gridWidth; column++)
-	{
-		for (int row = 0; row < gridHeight; row++)
-		{
-			//heightMap[column*gridWidth + row].setNormals(glm::vec3(1,0,0));
-			heightMap[column*gridWidth + row].setNormals(tmpBufferArray[column*gridWidth + row]);
-		}
-	}
-}
-
+//
+//void HeightMapdata::sampleHeightMaptoGetNormal()
+//{
+//	//tmpBufferArray = new glm::vec3[gridSize];
+//	glm::vec3 tmpBufferArray[66049];
+//	glm::vec3 closestPArray[5]; // index 0 is the point we are in currently.
+//	glm::vec3 averageNormal;
+//	int counter = 0;
+//
+//	for (int i = 0; i < gridWidth; i++)
+//	{
+//		for (int j = 0; j < gridHeight; j++)
+//		{
+//			averageNormal = glm::vec3(0, 0, 0);
+//
+//			if (i != 0 && i != 256 && j != 0 && j != 256) //regular way
+//			{
+//				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
+//				closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
+//				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
+//				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
+//				closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
+//			}
+//			if (i == 0)
+//			{
+//				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
+//				closestPArray[1] = glm::vec3(0, 1, 0);
+//				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
+//				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
+//				closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
+//			}
+//			else if (i == 256)
+//			{
+//				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
+//				closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
+//				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();
+//				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
+//				closestPArray[4] = glm::vec3(0, 1, 0);
+//			}
+//
+//			if (j == 0)
+//			{
+//				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
+//				if (i == 0)
+//					closestPArray[1] = glm::vec3(0, 1, 0);
+//				else
+//					closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
+//				closestPArray[2] = glm::vec3(0, 1, 0);
+//				closestPArray[3] = heightMap[(i * gridWidth + j) + 1].getXYZ();
+//				if (i == 256)
+//					closestPArray[4] = glm::vec3(0, 1, 0);
+//				else
+//					closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
+//			}
+//			else if (j == 256)
+//			{
+//				closestPArray[0] = heightMap[i * gridWidth + j].getXYZ();
+//				if (i == 0)
+//					closestPArray[1] = glm::vec3(0, 1, 0);
+//				else
+//					closestPArray[1] = heightMap[(i * gridWidth + j) - 257].getXYZ();
+//				closestPArray[2] = heightMap[(i * gridWidth + j) - 1].getXYZ();	
+//				closestPArray[3] = glm::vec3(0, 1, 0);
+//				if (i == 256)
+//					closestPArray[4] = glm::vec3(0, 1, 0);
+//				else
+//					closestPArray[4] = heightMap[(i * gridWidth + j) + 257].getXYZ();
+//			}
+//
+//			for (int n = 1; n < 5; n++)
+//			{
+//				if (n%2)
+//					averageNormal += normalize(cross(closestPArray[0], closestPArray[n]));
+//				else
+//					averageNormal += normalize(cross(closestPArray[n], closestPArray[0]));
+//			}
+//			/*averageNormal += normalize(cross(closestPArray[1], closestPArray[2]));
+//			averageNormal += normalize(cross(closestPArray[2], closestPArray[3]));
+//			averageNormal += normalize(cross(closestPArray[3], closestPArray[4]));
+//			averageNormal += normalize(cross(closestPArray[4], closestPArray[1]));*/
+//
+//			averageNormal = averageNormal / 4.0f;
+//
+//			tmpBufferArray[counter] = normalize(averageNormal); //Array with vertex normals.
+//			counter++;
+//		}
+//	}
+//
+//	for (int column = 0; column < gridWidth; column++)
+//	{
+//		for (int row = 0; row < gridHeight; row++)
+//		{
+//			//heightMap[column*gridWidth + row].setNormals(glm::vec3(1,0,0));
+//			heightMap[column*gridWidth + row].setNormals(tmpBufferArray[column*gridWidth + row]);
+//		}
+//	}
+//}
+//
 
 int HeightMapdata::getIBOCount()
 {
