@@ -190,7 +190,7 @@ bool ShaderBlit::compile()
 		else if(Use == 5)
 		{
 			vec4 fogColor = vec4(0.8,0.8,0.9,0.0);
-			vec3 dist = eyepos - (texture(Position, vec2(UV.x, UV.y))).xyz; //world pos
+			vec3 dist = eyepos - (texture(Position, UV)).xyz; //world pos
 			float len = length(dist);
 			float maxdist = 300.0;
 			
@@ -219,7 +219,7 @@ bool ShaderBlit::compile()
 						fragment_color += CalcSpotLight(lights[n], Normal0.xyz);
 				}
 				
-				fragment_color = fogColor * (len/maxdist) + (1-len/maxdist) * fragment_color * Diffuse0; // 
+				fragment_color =  fogColor * (len/maxdist) + (1-len/maxdist) * fragment_color * Diffuse0; // 
 			}
 		}
 		else

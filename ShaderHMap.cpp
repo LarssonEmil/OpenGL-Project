@@ -116,7 +116,7 @@ bool ShaderHMap::compile()
 			WorldPosOut = possi;
 			DiffuseOut = (blendMap.g*mat1 + blendMap.r*mat2).xyz; //DiffuseOut = -0.15f + (possi / 256.0f);
 			NormalOut = normalWorld;
-			TexCoordOut = vec3 (1,0,0);	
+			TexCoordOut = blendMap;	
 		}
 	)";
 

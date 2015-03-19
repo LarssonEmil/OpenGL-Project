@@ -3,8 +3,6 @@
 #include <fstream>
 #include <vector>
 
-
-
 Render::Render(unsigned int* width, unsigned int* height)
 {
 	windowWidth = width;
@@ -71,13 +69,16 @@ void Render::GeometryPassHMap()
 {
 	glUseProgram(gShaderProgramHMap);
 	bool insideBorders = false;
-	if (lastPos != *in->GetPos())
+	if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
 	{
-		insideBorders = heightMap->terrainCollison(*in->GetPos());
-		lastPos = *in->GetPos();
+		glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
+		QT->ExtractPlanes(&wombocombomatrix, true);
+
+		if(lastPos != *in->GetPos())
+			insideBorders = heightMap->terrainCollison(*in->GetPos());
 	}
 
-	glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
+	//glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
 
 	heightMap->Bind(&gShaderProgramHMap, shaderHMap);
 
@@ -90,9 +91,6 @@ void Render::GeometryPassHMap()
 	glBindVertexArray(heightMap->gHeightMapAttribute);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, heightMap->ssbo);
 	glBindBuffer(GL_ARRAY_BUFFER, heightMap->gHeightMapBuffer);
-	
-	//glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
-	//QT->ExtractPlanes(&wombocombomatrix, true);
 
 	//traverse tree and draw
 	QT->Draw(QT->root, 5, &viewMatrix);
@@ -161,7 +159,6 @@ void Render::ShadowMapPass(Obj* object)
 	{
 		viewMatrix = glm::lookAt(spotLights[n].Position, spotLights[n].Position + spotLights[n].Direction, vec3(0, 1, 0));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->model, 1, false, &(object->worldMatrix[0][0]));
-		//glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->normal, 1, false, &(object->normalMatrix[0][0]));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->view, 1, false, &viewMatrix[0][0]);
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->proj, 1, false, &projMatrix[0][0]);
 		glDrawElements(GL_TRIANGLES, object->faceCount * 3, GL_UNSIGNED_SHORT, 0);
@@ -211,12 +208,12 @@ void Render::LightPass()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//each blit
-	//for (int n = 0; n < 5; n++)
-	//{
-	//	blitQuads[n].BindVertData();
-	//	glProgramUniform1i(gShaderProgramBlit, shaderBlit->Use, n);
-	//	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	//}
+	for (int n = 0; n < 5; n++)
+	{
+		blitQuads[n].BindVertData();
+		glProgramUniform1i(gShaderProgramBlit, shaderBlit->Use, n);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
 
 #ifdef _DEBUG
 	{GLenum err = glGetError(); if (err)

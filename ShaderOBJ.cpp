@@ -36,7 +36,7 @@ bool ShaderOBJ::compile()
 
 	void main()
 	{       
-		Position0		= (vec4(Position, 1.0) * World).xyz; //why this one right and the other one left??
+		Position0		= (vec4(Position, 1.0) * World).xyz; 
 		gl_Position		= Projection * View * vec4(Position0, 1); 
 		UV0				= UV;    
 	}
@@ -98,7 +98,7 @@ bool ShaderOBJ::compile()
 		WorldPosOut     = Position;					
 		DiffuseOut      = texture(textureSample, UV).xyz;	
 		NormalOut       = Normal;					
-		TexCoordOut     = vec3(UV, 0.0);				
+		TexCoordOut     = vec3(mod(	UV.x, 1.0), mod(UV.y, 1.0), 0.0);				
 	}
 )";
 		GLint success = 0;

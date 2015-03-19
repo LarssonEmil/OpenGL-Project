@@ -1,1 +1,2 @@
-0(23) : error C7011: implicit cast from "vec4" to "vec3"
+0(19) : error C1021: operands to "%" must be integral
+0(19) : error C1021: operands to "%" must be integral

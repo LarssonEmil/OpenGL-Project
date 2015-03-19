@@ -27,8 +27,9 @@ bool ShaderSMap::compile()
 	uniform mat4 Projection;                                                                                                                      
 
 	void main()
-	{       
-		gl_Position = (Projection * View * World * vec4(Position, 1.0));
+	{      
+		gl_Position = vec4(Position, 1.0) * World;
+		gl_Position = Projection * View * gl_Position;
 	}
 )";
 

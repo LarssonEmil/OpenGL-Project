@@ -22,36 +22,26 @@ int Core::update()
 		rend->obj2 = new Obj("boat", objectCounter++, 0.01f);
 		rend->obj->translate(128.0f, 9.0f, 128.0f);
 		rend->obj->scaleUniform(30.0f);
-		rend->obj2->translate(100.0f, 10.0f, 90.0f);
+		rend->obj2->translate(60.0f, 10.0f, 70.0f);
 		rend->obj2->scaleUniform(-0.95f);
-
-		
 
 		MakeLights();
 		wave = 0.0f;
 	}
-	wave += 0.01f;
-	UpdateLights(wave);
+	//wave += 0.01f;
+	//UpdateLights(wave);
 
 	rend->GeometryPassInit();
-	rend->GeometryPass(rend->obj);
 	rend->GeometryPass(rend->obj2);
+	rend->GeometryPass(rend->obj);
 	rend->GeometryPassHMap();
 	rend->GeometryPassParticle();
-
-	//rotate light
-	float rottemp = 0.001f;
-	glm::mat3 rot = glm::mat3(cos(rottemp), 0.0f, -sin(rottemp),
-		0.0f, 1.0f, 0.0f,
-		sin(rottemp), 0.0f, cos(rottemp));
-	rend->spotLights[0].Position = rend->spotLights[0].Position* rot;
-	rend->spotLights[0].Direction = rend->spotLights[0].Direction* rot;
 	
-	//rend->obj2->rotate(0, 0.1f, 0);
+	rend->obj2->rotate(0, 0.1f, 0);
 	if (rend->nrSpotLightsShadow > 0)
 	{
-		rend->ShadowMapPassInit();
-		rend->ShadowMapPass(rend->obj);
+		rend->ShadowMapPassInit(); 
+		//rend->ShadowMapPass(rend->obj); flat objects dont cast shadows
 		rend->ShadowMapPass(rend->obj2);
 	}
 
@@ -66,50 +56,45 @@ int Core::update()
 
 void Core::MakeLights()
 {
-	rend->nrSpotLights = 14; //including lights that cast shadows
+	rend->nrSpotLights = 2; //including lights that cast shadows
 	rend->nrSpotLightsShadow = 1;
 
-	//Shadowmap lights INIT
-	//rend->shadowMap = new ShadowMapFBO[rend->nrSpotLightsShadow];
-	//for (int n = 0; n < rend->nrSpotLightsShadow; n++)
-	//	rend->shadowMap[0].Init(WINDOW_WITH, WINDOW_HEIGHT);
 	rend->shadowMap = new ShadowMapFBO();
 	rend->shadowMap->Init(WINDOW_WITH, WINDOW_HEIGHT);
 
-	//regular lights INIT
 	rend->spotLights = new SpotLight[rend->nrSpotLights];
 
 	rend->spotLights[0].Color = vec3(1.0f, 1.0f, 1.0f); 
-	rend->spotLights[0].Position = vec3(5.0f, 2.0f, 5.0f);
-	rend->spotLights[0].Direction = normalize(vec3(-2.0f, -1.0f, -2.0f));
-	rend->spotLights[0].DiffuseIntensity = 1.00f;
+	rend->spotLights[0].Position  = vec3(0.0f, 125.0f, 70.0f);
+	rend->spotLights[0].Direction = normalize(vec3(0.4f, -0.6f, 0.0f));
+	rend->spotLights[0].DiffuseIntensity = 0.50f;
 	rend->spotLights[0].AmbientIntensity = 0.0f;
 	rend->spotLights[0].Cutoff = 0.9f;
 
-	rend->spotLights[13].Color = vec3(1.0f, 1.0f, 1.0f);
-	rend->spotLights[13].Position = vec3(100.0f, 100.0f, 100.0f);
-	rend->spotLights[13].Direction = normalize(vec3(0.2f, -0.6f, 0.2f));
-	rend->spotLights[13].DiffuseIntensity = 1.0f;
-	rend->spotLights[13].AmbientIntensity = 0.4f;
-	rend->spotLights[13].Cutoff = 0.01f;
+	rend->spotLights[1].Color = vec3(1.0f, 1.0f, 1.0f);
+	rend->spotLights[1].Position = vec3(0.0f, 125.0f, 70.0f);
+	rend->spotLights[1].Direction = normalize(vec3(0.4f, -0.6f, 0.0f));
+	rend->spotLights[1].DiffuseIntensity = 0.4f;
+	rend->spotLights[1].AmbientIntensity = 0.4f;
+	rend->spotLights[1].Cutoff = 0.01f;
 
-	int count = 1;
-	int max = 4;
-	int maxii = max - 1;
-	for (int x = 0; x < max; x++)
-	{
-		for (int y = 0; y < max; y++)
-		{
-			if (x == 0 || x == maxii || y == 0 || y == maxii)
-			{
-				rend->spotLights[count].Color = vec3(	0.0f + float(x) / maxii, 
-														1.0f - (float(y) / float(maxii) + float(x) / float(maxii)) / 2,
-														1.0f - float(y) / maxii);
-				rend->spotLights[count].Position = vec3(((float(x) / float(maxii)) - 0.5f) * 10, -0.5f, ((float(y) / float(maxii)) - 0.5f) * 10);
-				count++;
-			}
-		}
-	}
+	//int count = 1;
+	//int max = 4;
+	//int maxii = max - 1;
+	//for (int x = 0; x < max; x++)
+	//{
+	//	for (int y = 0; y < max; y++)
+	//	{
+	//		if (x == 0 || x == maxii || y == 0 || y == maxii)
+	//		{
+	//			rend->spotLights[count].Color = vec3(	0.0f + float(x) / maxii, 
+	//													1.0f - (float(y) / float(maxii) + float(x) / float(maxii)) / 2,
+	//													1.0f - float(y) / maxii);
+	//			rend->spotLights[count].Position = vec3(((float(x) / float(maxii)) - 0.5f) * 10, -0.5f, ((float(y) / float(maxii)) - 0.5f) * 10);
+	//			count++;
+	//		}
+	//	}
+	//}
 }
 
 void Core::UpdateLights(float wave)
