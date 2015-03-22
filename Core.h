@@ -13,6 +13,7 @@ private:
 	void InitShadowMaps();
 public:
 	Core();
+	~Core();
 	Render* rend;
 	int update();
 	unsigned int objectCounter = 0;

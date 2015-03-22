@@ -22,6 +22,7 @@ HeightMapdata::HeightMapdata()
 HeightMapdata::~HeightMapdata()
 {
 	delete heightMap;
+	delete[] subIndexBuffers;
 }
 
 void HeightMapdata::Init()

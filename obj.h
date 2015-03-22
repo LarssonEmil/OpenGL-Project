@@ -20,7 +20,6 @@ private:
 	GLuint vertexDataId;
 	GLuint gVertexAttribute;
 	GLuint textureId;
-	GLuint* gShaderProgram;
 	bool loadVert(const std::string);
 	void loadVert2();
 	bool loadBMP(const std::string);
@@ -36,6 +35,7 @@ public:
 		float u, v;
 	};
 	Obj(const char* name, int id, float scale);
+	~Obj();
 	glm::vec4 pos;
 	float rotx, roty, rotz;
 	void translate(float x, float y, float z);

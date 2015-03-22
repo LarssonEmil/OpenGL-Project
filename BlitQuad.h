@@ -21,6 +21,7 @@ private:
 	};
 public:
 	BlitQuad();
+	~BlitQuad();
 	void BindVertData();
 	void Init(GLuint* shaderProgram, vec2 botLeft, vec2 topRight);
 };

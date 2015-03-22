@@ -26,6 +26,30 @@ QuadTree::QuadTree(GLuint* dataStruct, int dimentions)
 	p_planes2[5].dir = { 0, 0, -1 };
 }
 
+QuadTree::~QuadTree()
+{
+	Colapse(root, 5);
+	delete root;
+}
+
+void QuadTree::Colapse(Node* _this, int level)
+{
+	if (level == 0)
+	{
+		return;
+	}
+	level -= 1;
+	Colapse(_this->NE, level);
+	delete _this->NE;
+	Colapse(_this->SE, level);
+	delete _this->SE;
+	Colapse(_this->SW, level);
+	delete _this->SW;
+	Colapse(_this->NW, level);
+	delete _this->NW;
+	return;
+}
+
 void QuadTree::Build(GLuint* dataStruct, Node* _this, int edgeX, int edgeY, int newSize, int endSplit)
 {
 	int half = newSize / 2;

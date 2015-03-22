@@ -34,6 +34,7 @@ private:
 	float toRadian(float val);
 public:
 	UserInput(mat4* mat, vec3 posIn, vec3 lookIn, vec3 upIn);
+	~UserInput();
 	void KeyDown(char c);
 	void KeyUp(char c);
 	void Mouse(int x, int y);

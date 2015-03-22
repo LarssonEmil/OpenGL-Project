@@ -11,6 +11,11 @@ Core::Core()
 #endif
 }
 
+Core::~Core()
+{
+	delete rend;
+}
+
 int Core::update()
 {
 	//update game logic..

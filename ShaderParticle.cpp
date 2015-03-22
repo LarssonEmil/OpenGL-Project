@@ -11,6 +11,11 @@ ShaderParticle::ShaderParticle(GLuint* gShaderP)
 	ProjectionMatrix = glGetUniformLocation(*gShaderProgram, "ProjectionMatrix");
 }
 
+ShaderParticle::~ShaderParticle()
+{
+
+}
+
 bool ShaderParticle::compile()
 {
 	const char* vertex_shader = R"(

@@ -5,6 +5,11 @@ BlitQuad::BlitQuad()
 
 }
 
+BlitQuad::~BlitQuad()
+{
+
+}
+
 void BlitQuad::Init(GLuint* shaderProgram, vec2 bl, vec2 tr)
 {
 	TriangleVertex* vex = new TriangleVertex[6];

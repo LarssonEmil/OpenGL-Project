@@ -15,6 +15,11 @@ ShaderCompute::ShaderCompute(GLuint* gShaderP)
 	gridHeightV = glGetUniformLocation(*gShaderProgram, "gridHeight");
 }
 
+ShaderCompute::~ShaderCompute()
+{
+
+}
+
 bool ShaderCompute::compile()
 {
 	const char* compute_shader = R"( 

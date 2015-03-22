@@ -11,7 +11,22 @@ Render::Render(unsigned int* width, unsigned int* height)
 
 Render::~Render()
 {
-
+	delete [] blitQuads;
+	delete QT;
+	delete gBuffer;
+	delete shaderOBJ;
+	delete shaderBlit;
+	delete shaderSMap;
+	delete shaderHMap;
+	delete shaderParticle;
+	delete shaderCompute;
+	delete particles;
+	if (obj)
+		delete obj;
+	if (obj2)
+		delete obj2;
+	delete heightMap;
+	delete in;
 }
 
 void Render::Init()

@@ -20,6 +20,11 @@ ShaderOBJ::ShaderOBJ(GLuint* gShaderP)
 #endif
 }
 
+ShaderOBJ::~ShaderOBJ()
+{
+
+}
+
 bool ShaderOBJ::compile()
 {
 	const char* vertex_shader = R"(

@@ -23,6 +23,11 @@ UserInput::UserInput(mat4* mat, vec3 posIn, vec3 targetIn, vec3 upIn)
 	D = false;
 }
 
+UserInput::~UserInput()
+{
+
+}
+
 void UserInput::KeyDown(char c)
 {
 	switch (c)

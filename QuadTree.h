@@ -37,7 +37,9 @@ public:
 	Plane2 p_planes2[6];
 	
 	QuadTree(GLuint* dataStruct, int dimentions);
+	~QuadTree();
 	void Build(GLuint* dataStruct, Node* _this, int x, int y, int newSize, int endSplit);
+	void Colapse(Node* _this, int level);
 	Node* root;
 	void ExtractPlanes(glm::mat4* comboMatrix, bool normaliz);
 	void Draw(Node* _this, int depth, glm::mat4* viewMat);

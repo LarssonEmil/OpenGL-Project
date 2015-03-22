@@ -8,6 +8,11 @@ Particles::Particles()
 
 }
 
+Particles::~Particles()
+{
+
+}
+
 void Particles::createPaticleData(float hMapStartX, float hMapStartZ)  //Second shader storage buffer, stores particle data.
 {
 	vec3 velocity = vec3(0, 3.0f, 0.0f);

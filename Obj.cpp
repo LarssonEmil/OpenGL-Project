@@ -25,6 +25,11 @@ Obj::Obj(const char* name, int id, float scale)
 		throw;
 }
 
+Obj::~Obj()
+{
+
+}
+
 bool Obj::loadBMP(const std::string imagepath)
 {
 	unsigned char header[54]; // Each BMP file begins by a 54-bytes header

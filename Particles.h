@@ -9,6 +9,7 @@ class Particles
 {
 public:
 	Particles();
+	~Particles();
 	struct Particle
 	{
 		glm::vec3 pos;

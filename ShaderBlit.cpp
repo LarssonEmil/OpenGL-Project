@@ -36,6 +36,11 @@ ShaderBlit::ShaderBlit(GLuint* gShaderP)
 #endif
 }
 
+ShaderBlit::~ShaderBlit()
+{
+
+}
+
 bool ShaderBlit::compile()
 {
 	const char* vertex_shader = R"(

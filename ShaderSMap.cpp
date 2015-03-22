@@ -15,6 +15,11 @@ ShaderSMap::ShaderSMap(GLuint* gShaderP)
 	normal = glGetUniformLocation(*gShaderProgram, "NormalMatrix");
 }
 
+ShaderSMap::~ShaderSMap()
+{
+
+}
+
 bool ShaderSMap::compile()
 {
 	const char* vertex_shader = R"(

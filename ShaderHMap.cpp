@@ -18,6 +18,11 @@ ShaderHMap::ShaderHMap(GLuint* gShaderP)
 	mat2Scale = glGetUniformLocation(*gShaderProgram, "mat2Scale");
 }
 
+ShaderHMap::~ShaderHMap()
+{
+
+}
+
 bool ShaderHMap::compile()
 {
 	const char* vertex_shader = R"(
