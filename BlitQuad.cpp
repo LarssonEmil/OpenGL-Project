@@ -7,8 +7,6 @@ BlitQuad::BlitQuad()
 
 void BlitQuad::Init(GLuint* shaderProgram, vec2 bl, vec2 tr)
 {
-	gShaderProgram = shaderProgram;
-
 	TriangleVertex* vex = new TriangleVertex[6];
 	vex[0] = { vec3(bl.x, tr.y, 0), vec2(0, 1) };
 	vex[1] = { vec3(bl.x, bl.y, 0), vec2(0, 0) };

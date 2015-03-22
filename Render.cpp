@@ -71,11 +71,11 @@ void Render::GeometryPassHMap()
 	bool insideBorders = false;
 	if (lastPos != *in->GetPos() || lastDir != in->getToTarget())
 	{
-		glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
-		QT->ExtractPlanes(&wombocombomatrix, true);
+		//glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
+		//QT->ExtractPlanes(&wombocombomatrix, true);
 
-		if(lastPos != *in->GetPos())
-			insideBorders = heightMap->terrainCollison(*in->GetPos());
+		//if(lastPos != *in->GetPos())
+		//	insideBorders = heightMap->terrainCollison(*in->GetPos());
 	}
 
 	//glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
@@ -114,15 +114,15 @@ void Render::GeometryPassParticle()
 	//compute shader
 	glUseProgram(gShaderProgramCompute);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, heightMap->getTexture());
-	glProgramUniform1i(gShaderProgramCompute, shaderCompute->heightMapSampler, 0);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, heightMap->getTexture());
+	//glProgramUniform1i(gShaderProgramCompute, shaderCompute->heightMapSampler, 0);
 	glProgramUniform1f(gShaderProgramCompute, shaderCompute->gridWidthU, heightMap->getGridWidth());
 	glProgramUniform1f(gShaderProgramCompute, shaderCompute->gridHeightV, heightMap->getGridHeight());
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, particles->paticleVBO);
 	glDispatchCompute(20, 1, 1);
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
 #ifdef _DEBUG
 	{GLenum err = glGetError(); if (err)
@@ -132,7 +132,7 @@ void Render::GeometryPassParticle()
 	//Shaders for the particle system
 	glUseProgram(gShaderProgramParticle);
 
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, particles->paticleVBO);
+	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, particles->paticleVBO);
 	glProgramUniformMatrix4fv(gShaderProgramParticle, shaderParticle->ViewMatrix, 1, false, &viewMatrix[0][0]);
 	glProgramUniformMatrix4fv(gShaderProgramParticle, shaderParticle->ProjectionMatrix, 1, false, &projMatrix[0][0]);
 
@@ -186,10 +186,7 @@ void Render::LightPass()
 	glProgramUniform3fv(gShaderProgramBlit, shaderBlit->eyepos, 1, &(*in->GetPos())[0]);
 	glProgramUniform1i(gShaderProgramBlit, shaderBlit->NumSpotLights, nrSpotLights);
 	glProgramUniform1i(gShaderProgramBlit, shaderBlit->NumSpotLightsShadow, nrSpotLightsShadow);
-	//send shadowmaps
-	//GLuint* shadowss = new GLuint[nrSpotLightsShadow];
-	//for (int n = 0; n < nrSpotLightsShadow; n++)
-	//	shadowss[n] = shadowMap[n].m_shadowMap;
+
 	if (nrSpotLightsShadow > 0)
 	{
 		shadowMap->BindForReading(5);

@@ -85,7 +85,7 @@ bool ShaderBlit::compile()
 
 	layout (std140) uniform Light
 	{ 
-		SpotLight lights[30];
+		SpotLight lights[10];
 	};
 	
 	uniform int NumSpotLights;
@@ -172,8 +172,7 @@ bool ShaderBlit::compile()
 	{			
 		if(Use == 0)
 		{
-			vec4 tempcolor = texture(Position, vec2(UV.x, UV.y));
-			fragment_color = tempcolor * 0.25f;
+			fragment_color = texture(Position, UV) * 0.1;
 		}
 		else if(Use == 1)	 
 			fragment_color = texture(Diffuse, vec2(UV.x, UV.y));

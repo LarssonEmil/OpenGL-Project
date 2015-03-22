@@ -44,8 +44,8 @@ bool ShaderCompute::compile()
 			uint tmpID =  gl_GlobalInvocationID.x;
 			if( tmpID < 500 )
 			{
-				vec2 UV = vec2(data[tmpID].pos.x / gridWidth, data[tmpID].pos.z / gridHeight);
-				if( data[tmpID].pos.y < texture(heightMapSampler, UV).x*30 + 3)
+				//vec2 UV = vec2(data[tmpID].pos.x / gridWidth, data[tmpID].pos.z / gridHeight);
+				if( data[tmpID].pos.y < 0)//texture(heightMapSampler, UV).x*30 + 3)
 				{
 					data[tmpID].pos.x = data[tmpID].xPos;
 					data[tmpID].pos.y = data[tmpID].yPos;

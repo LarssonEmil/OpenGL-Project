@@ -117,7 +117,7 @@ void QuadTree::Draw(Node* _this, int depth, glm::mat4* viewMat)
 	else
 	{
 		bool draw = true;
-		draw = CullingAABB(_this); //fast
+		//draw = CullingAABB(_this); //fast
 		//draw = CullingSQUARE(_this, viewMat); //slow
 		if (!draw)
 			return;

@@ -15,8 +15,6 @@ bool ShaderParticle::compile()
 {
 	const char* vertex_shader = R"(
 		#version 430
-
-		uniform mat4 ViewMatrix;
 		
 		struct particles
 		{
@@ -33,7 +31,7 @@ bool ShaderParticle::compile()
 
 		void main () 
 		{
-			gl_Position = ViewMatrix * vec4(data[gl_VertexID].pos, 1);
+			gl_Position = vec4(data[gl_VertexID].pos, 1);
 		}
 	)";
 
@@ -42,32 +40,41 @@ bool ShaderParticle::compile()
 		layout (points) in;
 		layout(triangle_strip, max_vertices = 4) out;
 
+		uniform mat4 ViewMatrix;
 		uniform mat4 ProjectionMatrix;
-
+		
+		layout (location = 0) out vec3 Positions;
+		
 		void main ()
 		{
+			Positions = gl_in[0].gl_Position.xyz;
+
+			gl_in[0].gl_Position = ViewMatrix * gl_in[0].gl_Position;
+
 			vec3 nPos = normalize(gl_in[0].gl_Position.xyz);
 			vec3 up = vec3(0.0f, 1.0f, 0.0f);
 			vec3 bBoardVec = cross(-nPos, up);
-	
+			vec3 sizey = vec3(0.0f, 0.40f, 0.0f);
+			vec3 sizex = bBoardVec*0.02f;
+
 			//Triangle
 			//Upper left vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.10f + vec3(0.0f, 0.10f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz - sizex + sizey, 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 
 			//Lower left vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz - bBoardVec*0.10f - vec3(0.0f, 0.10f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz - sizex - sizey, 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 
 			//Upper right vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.10f + vec3(0.0f, 0.10f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz + sizex + sizey, 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;	
 			EmitVertex();
 
 			//Lower right vertex(corner)
-			gl_Position = vec4( gl_in[0].gl_Position.xyz + bBoardVec*0.10f - vec3(0.0f, 0.10f, 0.0f), 1.0f );
+			gl_Position = vec4( gl_in[0].gl_Position.xyz + sizex - sizey, 1.0f );
 			gl_Position = ProjectionMatrix * gl_Position;
 			EmitVertex();
 
@@ -78,13 +85,15 @@ bool ShaderParticle::compile()
 	const char* fragment_shader = R"(
 		#version 430
 
+		layout (location = 0) in vec3 worldpos;
+
 		layout (location = 0) out vec3 WorldPosOut;   
 		layout (location = 1) out vec3 DiffuseOut;     
 		layout (location = 2) out vec3 NormalOut;     
 		layout (location = 3) out vec3 TexCoordOut;    
 
 		void main () {
-			WorldPosOut = vec3(1,0,0);
+			WorldPosOut = worldpos;
 			DiffuseOut = vec3(0,0,1); //1,1,1
 			NormalOut = vec3(1,0,0);
 			TexCoordOut = vec3 (1,0,0);	
