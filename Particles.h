@@ -17,6 +17,7 @@ public:
 		glm::vec3 velocity;
 		float yPos;
 		Particle(){};
+		~Particle(){};
 		Particle(glm::vec3 pPos, glm::vec3 pVelocity, float pXPos, float pYPos)
 		{
 			pos = pPos;

@@ -1,5 +1,4 @@
 #include "Render.h"
-#include "bth_image.h"
 #include <fstream>
 #include <vector>
 
@@ -27,6 +26,15 @@ Render::~Render()
 		delete obj2;
 	delete heightMap;
 	delete in;
+	delete[] spotLights;
+	delete shadowMap;
+
+	glDeleteShader(gShaderProgramOBJ);
+	glDeleteShader(gShaderProgramBlit);
+	glDeleteShader(gShaderProgramSMap);
+	glDeleteShader(gShaderProgramHMap);
+	glDeleteShader(gShaderProgramParticle);
+	glDeleteShader(gShaderProgramCompute);
 }
 
 void Render::Init()

@@ -42,8 +42,6 @@ public:
 	unsigned int* windowWidth;
 	unsigned int* windowHeight;
 
-	GLuint gVertexAttribute = 0;
-
 	//Main shaders-------------
 	//DeferedPass
 	GBuffer* gBuffer;

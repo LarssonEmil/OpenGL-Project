@@ -38,7 +38,7 @@ ShaderBlit::ShaderBlit(GLuint* gShaderP)
 
 ShaderBlit::~ShaderBlit()
 {
-
+	glDeleteBuffers(1, &lightBuffer);
 }
 
 bool ShaderBlit::compile()

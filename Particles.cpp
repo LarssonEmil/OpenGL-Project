@@ -10,7 +10,7 @@ Particles::Particles()
 
 Particles::~Particles()
 {
-
+	glDeleteBuffers(1, &paticleVBO);
 }
 
 void Particles::createPaticleData(float hMapStartX, float hMapStartZ)  //Second shader storage buffer, stores particle data.

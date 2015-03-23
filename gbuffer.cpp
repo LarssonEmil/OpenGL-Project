@@ -13,17 +13,9 @@ GBuffer::GBuffer()
 
 GBuffer::~GBuffer()
 {
-	if (fbo != 0) {
-		glDeleteFramebuffers(1, &fbo);
-	}
-
-	if (textures[0] != 0) {
-		glDeleteTextures(GBUFFER_NUM_TEXTURES, textures);
-	}
-
-	if (depthTexture != 0) {
-		glDeleteTextures(1, &depthTexture);
-	}
+	glDeleteFramebuffers(1, &fbo);
+	glDeleteTextures(GBUFFER_NUM_TEXTURES, textures);
+	glDeleteTextures(1, &depthTexture);
 }
 
 

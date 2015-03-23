@@ -27,7 +27,10 @@ Obj::Obj(const char* name, int id, float scale)
 
 Obj::~Obj()
 {
-
+	glDeleteBuffers(1, &vertexDataId);
+	glDeleteBuffers(1, &IndexBufferId);
+	glDeleteVertexArrays(1, &gVertexAttribute);
+	glDeleteTextures(1, &textureId);
 }
 
 bool Obj::loadBMP(const std::string imagepath)

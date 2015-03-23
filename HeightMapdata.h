@@ -55,7 +55,6 @@ class HeightMapdata
 		float mat2Scale;
 
 		//Buffers 
-		GLuint gIndexAttribute;
 		GLuint gHeightMapBuffer;
 		GLuint gHeightMapAttribute;
 		GLuint ssbo = 0;

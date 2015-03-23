@@ -13,7 +13,6 @@ HeightMapdata::HeightMapdata()
 	gridHeight = 257;
 	gridSize = gridWidth*gridHeight;
 	gIndexBuffer = 0;
-	gIndexAttribute = 0;
 	IBOCounter = 0;
 	startingPosX = 0;
 	startingPosZ = 0;
@@ -21,8 +20,15 @@ HeightMapdata::HeightMapdata()
 
 HeightMapdata::~HeightMapdata()
 {
-	delete heightMap;
+	delete[] heightMap;
 	delete[] subIndexBuffers;
+	glDeleteBuffers(1, &gIndexBuffer);
+	glDeleteBuffers(1, &gHeightMapBuffer);
+	glDeleteVertexArrays(1, &gHeightMapAttribute);
+	glDeleteTextures(1, &height_texture);
+	glDeleteTextures(1, &grass_texture);
+	glDeleteTextures(1, &road_texture);
+	glDeleteTextures(1, &blend_texture);
 }
 
 void HeightMapdata::Init()
