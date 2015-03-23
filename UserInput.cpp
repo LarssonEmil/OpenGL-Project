@@ -166,7 +166,7 @@ void UserInput::Mouse(int x, int y)
 	if (angleV < -89)
 		angleV = -89;
 
-	//rotate vertically
+	//rotate vertically around x
 	float rotateRad;
 	vec3 view = vec3(1.0f, 0.0f, 0.0f);
 	rotateRad = toRadian(angleV);
@@ -176,7 +176,7 @@ void UserInput::Mouse(int x, int y)
 	view = rotV * view;
 	view = normalize(view);
 
-	//rotate horizontally
+	//rotate horizontally around y
 	rotateRad = toRadian(angleH);
 	rotH = mat3(cos(rotateRad), 0.0f, -sin(rotateRad), 
 				0.0f, 1.0f, 0.0f,

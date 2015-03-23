@@ -44,6 +44,7 @@ void Render::Init()
 	shaderBlit = new ShaderBlit(&gShaderProgramBlit);
 	shaderParticle = new ShaderParticle(&gShaderProgramParticle);
 	shaderCompute = new ShaderCompute(&gShaderProgramCompute);
+	shaderHMap = new ShaderHMap(&gShaderProgramHMap);
 
 	gBuffer = new GBuffer();
 	gBuffer->Init(*windowWidth, *windowHeight);
@@ -56,7 +57,6 @@ void Render::Init()
 	blitQuads[4].Init(&gShaderProgramBlit, vec2(0.6, -1), vec2(1, -0.6));
 	blitQuads[5].Init(&gShaderProgramBlit, vec2(-1, -1), vec2(1, 1));
 
-	shaderHMap = new ShaderHMap(&gShaderProgramHMap);
 	heightMap = new HeightMapdata();
 	heightMap->Init();
 	particles = new Particles();
@@ -97,8 +97,8 @@ void Render::GeometryPassHMap()
 		//glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
 		//QT->ExtractPlanes(&wombocombomatrix, true);
 
-		//if(lastPos != *in->GetPos())
-		//	insideBorders = heightMap->terrainCollison(*in->GetPos());
+		if(lastPos != *in->GetPos())
+			insideBorders = heightMap->terrainCollison(*in->GetPos());
 	}
 
 	//glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????

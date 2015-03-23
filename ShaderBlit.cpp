@@ -126,8 +126,7 @@ bool ShaderBlit::compile()
 			{                                                           
 				SpecularColor = vec4(l.Color, 1.0f) * gMatSpecularIntensity * SpecularFactor;                         
 			}                                                                                   
-		}                                                                                       
-                                                                                    
+		}                                                                                                                                                                     
 		return (AmbientColor + DiffuseColor + SpecularColor);                                   
 	}               
 	
@@ -159,9 +158,9 @@ bool ShaderBlit::compile()
 
 	float CalcShadowFactor()
 	{
-		vec4 LightSpacePos = Position0;
+		vec4 LightSpacePos = Position0; //pixel world pos
 		LightSpacePos = ProjectionMatrixSM * ViewMatrixSM * LightSpacePos;
-		vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
+		vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w; //Normalized device coordinates
 		vec2 UVCoords;
 		UVCoords.x = 0.5 * ProjCoords.x + 0.5;
 		UVCoords.y = 0.5 * ProjCoords.y + 0.5;

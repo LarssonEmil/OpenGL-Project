@@ -69,6 +69,7 @@ void HeightMapdata::createShaderBuffer()
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(float), y, GL_DYNAMIC_READ);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, ssbo);
+	delete y;
 }
 
 void HeightMapdata::loadMapTextures()
@@ -155,9 +156,7 @@ void HeightMapdata::HeightMapBuffers()
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
-
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(sizeof(float) * 3));
 
 #ifdef _DEBUG
