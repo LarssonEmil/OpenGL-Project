@@ -11,16 +11,16 @@ QuadTree::QuadTree(GLuint* dataStruct, int dimentions)
 	p_planes2[0].dir = { 0, 0, 1 };
 	//right
 	p_planes2[1].pos = { 0, 0, 0 };
-	p_planes2[1].dir = { 0.6, 0, 0.4 };
+	p_planes2[1].dir = { 0.50, 0, 0.50 };
 	//left
 	p_planes2[2].pos = { 0, 0, 0 };
-	p_planes2[2].dir = { -0.6, 0, 0.4 };
+	p_planes2[2].dir = { -0.50, 0, 0.50 };
 	//bot
 	p_planes2[3].pos = { 0, 0, 0 };
-	p_planes2[3].dir = { 0, -0.60, 0.40 };
+	p_planes2[3].dir = { 0, -0.55, 0.45 };
 	//top
 	p_planes2[4].pos = { 0, 0, 0 };
-	p_planes2[4].dir = { 0, 0.60, 0.40 };
+	p_planes2[4].dir = { 0, 0.55, 0.45 };
 	//far
 	p_planes2[5].pos = { 0, 0, 500 };
 	p_planes2[5].dir = { 0, 0, -1 };

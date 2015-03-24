@@ -149,13 +149,13 @@ bool Obj::loadVert(const std::string vertdatapath)
 			Indices[n * 3 + 2] = std::stoi(sub) - 1;
 		}
 		
-		glGenBuffers(1, &vertexDataId);
+		glGenBuffers(1, &vertexDataId); //vertex data
 		glBindBuffer(GL_ARRAY_BUFFER, vertexDataId);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vert[0])* vert_count, vert, GL_STATIC_DRAW);
 		vertCount = vert_count;
 		delete[] vert;
 
-		glGenBuffers(1, &IndexBufferId);
+		glGenBuffers(1, &IndexBufferId); //index data
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBufferId);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices[0]) * face_count * 3, Indices, GL_STATIC_DRAW);
 		faceCount = face_count;
@@ -165,7 +165,7 @@ bool Obj::loadVert(const std::string vertdatapath)
 		//define vertex data layout
 		glGenVertexArrays(1, &gVertexAttribute);
 		glBindVertexArray(gVertexAttribute);
-		glEnableVertexAttribArray(0); //the vertex attribute object will remember its enabled attributes
+		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		//pos
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Obj::TriangleVertex), BUFFER_OFFSET(0));

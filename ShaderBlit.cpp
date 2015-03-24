@@ -166,7 +166,7 @@ bool ShaderBlit::compile()
 		UVCoords.y = 0.5 * ProjCoords.y + 0.5;
 		float z = 0.5 * ProjCoords.z + 0.5;
 		float Depth = texture(ShadowMaps, UVCoords).x;
-		if (Depth < (z + 0.00005))
+		if (Depth < (z + 0.0000001))
 			return 0.01;
 		else
 			return 1.0;
@@ -222,7 +222,7 @@ bool ShaderBlit::compile()
 						fragment_color += CalcSpotLight(lights[n], Normal0.xyz);
 				}
 				
-				fragment_color =  fogColor * (len/maxdist) + (1-len/maxdist) * fragment_color * Diffuse0; // 
+				fragment_color = fogColor * (len/maxdist) + (1-len/maxdist) * fragment_color * Diffuse0; // 
 			}
 		}
 		else

@@ -33,6 +33,9 @@ int Core::update()
 		MakeLights();
 		wave = 0.0f;
 	}
+
+	rend->obj2->rotate(0, 0.05f, 0);
+
 	//wave += 0.01f;
 	//UpdateLights(wave);
 
@@ -42,7 +45,6 @@ int Core::update()
 	rend->GeometryPassHMap();
 	rend->GeometryPassParticle();
 	
-	rend->obj2->rotate(0, 0.1f, 0);
 	if (rend->nrSpotLightsShadow > 0)
 	{
 		rend->ShadowMapPassInit(); 
@@ -70,17 +72,17 @@ void Core::MakeLights()
 	rend->spotLights = new SpotLight[rend->nrSpotLights];
 
 	rend->spotLights[0].Color = vec3(1.0f, 1.0f, 1.0f); 
-	rend->spotLights[0].Position  = vec3(0.0f, 125.0f, 70.0f);
-	rend->spotLights[0].Direction = normalize(vec3(0.4f, -0.6f, 0.0f));
-	rend->spotLights[0].DiffuseIntensity = 0.50f;
+	rend->spotLights[0].Position  = vec3(-10.0f, 80.0f, 0.0f);
+	rend->spotLights[0].Direction = normalize(vec3(0.22f, -0.33f, 0.44f));
+	rend->spotLights[0].DiffuseIntensity = 0.8f;
 	rend->spotLights[0].AmbientIntensity = 0.0f;
-	rend->spotLights[0].Cutoff = 0.9f;
+	rend->spotLights[0].Cutoff = 0.75f;
 
 	rend->spotLights[1].Color = vec3(1.0f, 1.0f, 1.0f);
-	rend->spotLights[1].Position = vec3(0.0f, 125.0f, 70.0f);
-	rend->spotLights[1].Direction = normalize(vec3(0.4f, -0.6f, 0.0f));
-	rend->spotLights[1].DiffuseIntensity = 0.4f;
-	rend->spotLights[1].AmbientIntensity = 0.4f;
+	rend->spotLights[1].Position = vec3(-10.0f, 80.0f, 0.0f);
+	rend->spotLights[1].Direction = normalize(vec3(0.22f, -0.33f, 0.44f));
+	rend->spotLights[1].DiffuseIntensity = 0.40f;
+	rend->spotLights[1].AmbientIntensity = 0.10f;
 	rend->spotLights[1].Cutoff = 0.01f;
 
 	//int count = 1;

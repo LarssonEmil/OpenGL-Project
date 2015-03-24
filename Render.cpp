@@ -97,8 +97,8 @@ void Render::GeometryPassHMap()
 		//glm::mat4 wombocombomatrix = projMatrix * viewMatrix;
 		//QT->ExtractPlanes(&wombocombomatrix, true);
 
-		if(lastPos != *in->GetPos())
-			insideBorders = heightMap->terrainCollison(*in->GetPos());
+		//if(lastPos != *in->GetPos())
+		//	insideBorders = heightMap->terrainCollison(*in->GetPos());
 	}
 
 	//glMemoryBarrier(GL_ALL_BARRIER_BITS); //<--- ????
@@ -126,7 +126,6 @@ void Render::GeometryPassHMap()
 		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 	}
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	lastPos = *in->GetPos();
 	lastDir = in->getToTarget();
@@ -172,6 +171,7 @@ void Render::ShadowMapPassInit()
 {
 	glUseProgram(gShaderProgramSMap);
 	shadowMap->BindForWriting(); //clears
+	glViewport(0, 0, 640 * 10, 480 * 10 );
 }
 
 void Render::ShadowMapPass(Obj* object)
@@ -180,10 +180,11 @@ void Render::ShadowMapPass(Obj* object)
 	object->Bind();
 	for (int n = 0; n < nrSpotLightsShadow; n++)
 	{
-		viewMatrix = glm::lookAt(spotLights[n].Position, spotLights[n].Position + spotLights[n].Direction, vec3(0, 1, 0));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->model, 1, false, &(object->worldMatrix[0][0]));
+		viewMatrix = glm::lookAt(spotLights[n].Position, spotLights[n].Position + spotLights[n].Direction, vec3(0, 1, 0));
 		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->view, 1, false, &viewMatrix[0][0]);
-		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->proj, 1, false, &projMatrix[0][0]);
+		glm::mat4 projMatrix2 = glm::perspective(3.14f*0.45f, 640.f / 480.0f, 0.1f, 1000.0f);
+		glProgramUniformMatrix4fv(gShaderProgramSMap, shaderSMap->proj, 1, false, &projMatrix2[0][0]);
 		glDrawElements(GL_TRIANGLES, object->faceCount * 3, GL_UNSIGNED_SHORT, 0);
 	}
 	//viewMatrix = save;
@@ -192,7 +193,7 @@ void Render::ShadowMapPass(Obj* object)
 void Render::LightPass()
 {
 	glUseProgram(gShaderProgramBlit);
-
+	glViewport(0, 0, 640, 480);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
